@@ -1,6 +1,7 @@
 package types
 
 type Tournament struct {
+	Name        string
 	Host        Location
 	Organizer   Contact
 	AgeDivision [8]bool
