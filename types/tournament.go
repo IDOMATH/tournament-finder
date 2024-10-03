@@ -1,17 +1,21 @@
 package types
 
 type Tournament struct {
-	IsBoysVarsity  bool
-	IsGirlsVarsity bool
-	IsBoysJv       bool
-	IsGirlsJv      bool
-	IsBoysMs       bool
-	IsGirlsMs      bool
-	IsBoysYouth    bool
-	IsGirlsYouth   bool
-	Host           Location
-	Organizer      Contact
+	Host        Location
+	Organizer   Contact
+	AgeDivision [8]bool
 }
+
+const (
+	IsBoysVarsity = iota
+	IsGirlsVarsity
+	IsBoysJv
+	IsGirlsJv
+	IsBoysMs
+	IsGirlsMs
+	IsBoysYouth
+	IsGirlsYouth
+)
 
 type Location struct {
 	Name    string
