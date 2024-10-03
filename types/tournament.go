@@ -1,13 +1,17 @@
 package types
 
 type Tournament struct {
-	Divisions []Division
-	Ages      []AgeGroup
-	Host      Location
+	IsBoysVarsity  bool
+	IsGirlsVarsity bool
+	IsBoysJv       bool
+	IsGirlsJv      bool
+	IsBoysMs       bool
+	IsGirlsMs      bool
+	IsBoysYouth    bool
+	IsGirlsYouth   bool
+	Host           Location
+	Organizer      Contact
 }
-
-type Division int
-type AgeGroup int
 
 type Location struct {
 	Name    string
@@ -20,4 +24,9 @@ type Address struct {
 	City        string
 	State       string
 	PostalCode  int
+}
+
+type Contact struct {
+	Name  string
+	Email string
 }
