@@ -33,3 +33,36 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	}
 	return newId, nil
 }
+
+func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var tournaments []types.Tournament
+
+	//TODO: figure out fields in database
+	query := `select * from tournaments`
+
+	rows, err := s.DB.QueryContext(ctx, query)
+	if err != nil {
+		return tournaments, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var tournament types.Tournament
+		err := rows.Scan(
+			&tournament.Name,
+		)
+		if err != nil {
+			return tournaments, err
+		}
+		tournaments = append(tournaments, tournament)
+	}
+
+	if err = rows.Err(); err != nil {
+		return tournaments, err
+	}
+
+	return tournaments, nil
+}
