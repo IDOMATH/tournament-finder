@@ -18,6 +18,9 @@ const (
 	IsGirlsYouth
 )
 
+//TODO: make method for converting AgeDivision to an integer
+// and another to convert it back
+
 type Location struct {
 	Name    string
 	Address Address
