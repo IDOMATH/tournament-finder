@@ -1,6 +1,10 @@
 package types
 
-import "math"
+import (
+	"math"
+
+	"github.com/IDOMATH/Convert"
+)
 
 type Tournament struct {
 	Name        string
@@ -33,38 +37,11 @@ func AgeDivisionArrayToInt(s [8]bool) int {
 // TODO: Change this to make it more general
 func AgeDivisionIntToArray(val int) [8]bool {
 	var arr [8]bool
+	Convert.IntPow()
 	for i := 7; i >= 0; i-- {
-		if val >= 128 {
+		if val >= Convert.IntPow(2, i) {
 			arr[i] = true
-			val -= 128
-		}
-		if val >= 64 {
-			arr[i] = true
-			val -= 64
-		}
-		if val >= 32 {
-			arr[i] = true
-			val -= 32
-		}
-		if val >= 16 {
-			arr[i] = true
-			val -= 16
-		}
-		if val >= 8 {
-			arr[i] = true
-			val -= 8
-		}
-		if val >= 4 {
-			arr[i] = true
-			val -= 4
-		}
-		if val >= 2 {
-			arr[i] = true
-			val -= 2
-		}
-		if val >= 1 {
-			arr[i] = true
-			val -= 1
+			val -= Convert.IntPow(2, i)
 		}
 	}
 	return arr
