@@ -3,7 +3,7 @@ package types
 import (
 	"math"
 
-	"github.com/IDOMATH/Convert"
+	"github.com/idomath/CheetahMath"
 )
 
 type Tournament struct {
@@ -24,10 +24,10 @@ const (
 	IsGirlsYouth
 )
 
-func AgeDivisionArrayToInt(s [8]bool) int {
+func (t Tournament) AgeDivisionArrayToInt() int {
 	var value int = 0
-	for i := range s {
-		if s[i] {
+	for i := range t.AgeDivision {
+		if t.AgeDivision[i] {
 			value += int(math.Pow(2, float64(i)))
 		}
 	}
@@ -35,13 +35,12 @@ func AgeDivisionArrayToInt(s [8]bool) int {
 }
 
 // TODO: Change this to make it more general
-func AgeDivisionIntToArray(val int) [8]bool {
+func (t Tournament) AgeDivisionIntToArray(val int) [8]bool {
 	var arr [8]bool
-	Convert.IntPow()
 	for i := 7; i >= 0; i-- {
-		if val >= Convert.IntPow(2, i) {
+		if val >= CheetahMath.IntPow(2, i) {
 			arr[i] = true
-			val -= Convert.IntPow(2, i)
+			val -= CheetahMath.IntPow(2, i)
 		}
 	}
 	return arr
