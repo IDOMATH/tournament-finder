@@ -4,7 +4,7 @@ import "testing"
 
 func AgeDivisionArrayToIntTest(t *testing.T) {
 	expected := 0
-	tourney := Tournament{AgeDivision: [8]bool{0, 0, 0, 0, 0, 0, 0, 0}}
+	tourney := Tournament{AgeDivision: [8]bool{false, false, false, false, false, false, false, false}}
 
 	got := tourney.AgeDivisionArrayToInt()
 
