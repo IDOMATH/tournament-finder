@@ -3,7 +3,7 @@ package types
 import (
 	"math"
 
-	"github.com/idomath/CheetahMath"
+	"github.com/IDOMATH/CheetahMath"
 )
 
 type Tournament struct {
