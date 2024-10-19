@@ -26,3 +26,16 @@ func (h *TournamentHandler) HandleGetTournaments(w http.ResponseWriter, r *http.
 
 	//TODO: render template
 }
+
+func (h *TournamentHandler) HandleGetTournamentById(w http.ResponseWriter, r *http.Request) {
+	id := r.PathValue("id")
+	tournament, err := h.tournamentStore.GetTournamentById(id)
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+	td := types.TemplateData{
+		PageName:  tournament.Name,
+		ObjectMap: make(map[string]interface{}),
+	}
+}
