@@ -66,3 +66,20 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 
 	return tournaments, nil
 }
+
+func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var tournament types.Tournament
+	query := `select * from tournaments where id = $1`
+
+	err := s.DB.QueryRowContext(ctx, query, id).Scan(tournament)
+	if err == sql.ErrNoRows {
+		return tournament, err
+	}
+	if err != nil {
+		return tournament, err
+	}
+	return tournament, nil
+}
