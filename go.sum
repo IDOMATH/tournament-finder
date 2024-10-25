@@ -1,2 +1,8 @@
 github.com/IDOMATH/CheetahMath v0.0.0-20241017020214-f0807e218cb8 h1:E+lhp/G3Y40sRHowX5b57zLZ5johC0i0RWwNxE3+K+o=
 github.com/IDOMATH/CheetahMath v0.0.0-20241017020214-f0807e218cb8/go.mod h1:sTB6I0Hh4sCJgOzrSZiQtHdUZradfnOMzq9tSi1jb2w=
+github.com/IDOMATH/CheetahMath v0.0.0-20241025233657-90f54aa7d924 h1:D/H3DPXfUXgbosBI+l5j7pgYl1fAvtk99H6IPoQsVJ4=
+github.com/IDOMATH/CheetahMath v0.0.0-20241025233657-90f54aa7d924/go.mod h1:sTB6I0Hh4sCJgOzrSZiQtHdUZradfnOMzq9tSi1jb2w=
+github.com/IDOMATH/CheetahRender v0.0.0-20241025225127-fcba82dff1bb h1:k2fZWDG3nFC2zDPaB4yEJ/ZXFY7XDEUgsYx+VEtvR2s=
+github.com/IDOMATH/CheetahRender v0.0.0-20241025225127-fcba82dff1bb/go.mod h1:IwAg6NvFWaD2RPrJ9z0ITJ/5noz6gZQmLyygjmK0T24=
+github.com/IDOMATH/CheetahRender v0.0.0-20241025230010-8b0fef378933 h1:7eH1Arc8fbQ/xJ+XFBwLpA9kw8kv0EJuvW33nUcnbLs=
+github.com/IDOMATH/CheetahRender v0.0.0-20241025230010-8b0fef378933/go.mod h1:IwAg6NvFWaD2RPrJ9z0ITJ/5noz6gZQmLyygjmK0T24=

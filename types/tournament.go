@@ -3,7 +3,7 @@ package types
 import (
 	"math"
 
-	"github.com/IDOMATH/CheetahMath"
+	"github.com/IDOMATH/CheetahMath/formulas"
 )
 
 type Tournament struct {
@@ -38,9 +38,9 @@ func (t Tournament) AgeDivisionArrayToInt() int {
 func (t Tournament) AgeDivisionIntToArray(val int) [8]bool {
 	var arr [8]bool
 	for i := 7; i >= 0; i-- {
-		if val >= CheetahMath.IntPow(2, i) {
+		if val >= formulas.IntPow(2, i) {
 			arr[i] = true
-			val -= CheetahMath.IntPow(2, i)
+			val -= formulas.IntPow(2, i)
 		}
 	}
 	return arr
