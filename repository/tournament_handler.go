@@ -49,4 +49,6 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 		PageName:  tournament.Name,
 		ObjectMap: make(map[string]interface{}),
 	}
+
+	repo.RR.Render(w, r, "tournament.go.html", td)
 }
