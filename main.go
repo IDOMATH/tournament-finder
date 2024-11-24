@@ -23,6 +23,8 @@ func main() {
 	repo.RR = *rr
 
 	router.HandleFunc("GET /", repo.HandleHome)
+	router.HandleFunc("GET /tournaments", repo.HandleGetTournaments)
+	router.HandleFunc("GET /tournaments/{id}", repo.HandleGetTournamentById)
 
 	fmt.Println("Starting on port 8080")
 	log.Fatal(server.ListenAndServe())
