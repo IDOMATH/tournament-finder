@@ -12,6 +12,15 @@ type TournamentHandler struct {
 	tournamentStore db.TournamentStore
 }
 
+func (repo *Repository) HandleGetNewTournamentForm(w http.ResponseWriter, r *http.Request) {
+	td := types.TemplateData{
+		PageName:  "New Tournament",
+		ObjectMap: make(map[string]interface{}),
+	}
+
+	repo.RR.Render(w, r, "tournament-form.go.html", td)
+}
+
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
 	var tournament types.Tournament
 	tournament.Name = r.FormValue("Name")
