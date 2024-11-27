@@ -9,7 +9,7 @@ import (
 )
 
 type TournamentHandler struct {
-	tournamentStore db.TournamentStore
+	TournamentStore db.TournamentStore
 }
 
 func (repo *Repository) HandleGetNewTournamentForm(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +25,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	var tournament types.Tournament
 	tournament.Name = r.FormValue("Name")
 
-	repo.TH.tournamentStore.InsertTournament(tournament)
+	repo.TH.TournamentStore.InsertTournament(tournament)
 }
 
 func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Request) {
@@ -33,7 +33,7 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 		PageName:  "All Tournaments",
 		ObjectMap: make(map[string]interface{}),
 	}
-	tournaments, err := repo.TH.tournamentStore.GetAllTournaments()
+	tournaments, err := repo.TH.TournamentStore.GetAllTournaments()
 	if err != nil {
 		w.Write([]byte(err.Error()))
 		return
@@ -49,7 +49,7 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 	if err != nil {
 		w.Write([]byte("error converting ID from string to int: " + err.Error()))
 	}
-	tournament, err := repo.TH.tournamentStore.GetTournamentById(id)
+	tournament, err := repo.TH.TournamentStore.GetTournamentById(id)
 	if err != nil {
 		w.Write([]byte(err.Error()))
 		return
