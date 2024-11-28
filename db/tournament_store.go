@@ -34,6 +34,24 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	return newId, nil
 }
 
+func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.Tournament, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var updatedTournament types.Tournament
+
+	//TODO: add fields to statement and execution
+	statement := `update tournaments set ... where id = $1`
+
+	res, err := s.DB.ExecContext(ctx, statement)
+
+	if err != nil {
+		return updatedTournament, err
+	}
+
+	return updatedTournament, nil
+}
+
 func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
