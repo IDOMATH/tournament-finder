@@ -28,6 +28,19 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	repo.TH.TournamentStore.InsertTournament(tournament)
 }
 
+func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Request) {
+	var tournament types.Tournament
+	tournament.Name = r.FormValue("Name")
+
+	repo.TH.TournamentStore.UpdateTournament(tournament)
+
+	td := types.TemplateData{
+		PageName: tournament.Name,
+	}
+
+	repo.RR.Render(w, r, "tournament.go.html", td)
+}
+
 func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Request) {
 	td := types.TemplateData{
 		PageName:  "All Tournaments",
