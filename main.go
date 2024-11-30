@@ -46,6 +46,7 @@ func main() {
 	router.HandleFunc("GET /tournaments", repo.HandleGetTournaments)
 	router.HandleFunc("GET /new-tournament", repo.HandleGetNewTournamentForm)
 	router.HandleFunc("POST /new-tournament", repo.HandlePostTournament)
+	router.HandleFunc("PUT /tournaments/{id}", repo.HandlePutTournament)
 	router.HandleFunc("GET /tournaments/{id}", repo.HandleGetTournamentById)
 
 	fmt.Println("Starting on port 8080")
