@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"time"
 
 	"github.com/IDOMATH/tournament-finder/types"
@@ -44,6 +45,8 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 	statement := `update tournaments set ... where id = $1`
 
 	res, err := s.DB.ExecContext(ctx, statement)
+
+	fmt.Println(res)
 
 	if err != nil {
 		return updatedTournament, err
@@ -93,9 +96,6 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	query := `select * from tournaments where id = $1`
 
 	err := s.DB.QueryRowContext(ctx, query, id).Scan(tournament)
-	if err == sql.ErrNoRows {
-		return tournament, err
-	}
 	if err != nil {
 		return tournament, err
 	}

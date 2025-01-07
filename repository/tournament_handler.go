@@ -74,3 +74,7 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 
 	repo.RR.Render(w, r, "tournament.go.html", td)
 }
+
+func (repo *Repository) HandleDeleteTournament(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Deleting tournament"))
+}
