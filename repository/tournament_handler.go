@@ -77,4 +77,19 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 
 func (repo *Repository) HandleDeleteTournament(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Deleting tournament"))
+	id, err := strconv.Atoi(r.PathValue("id"))
+	if err != nil {
+		w.Write([]byte("error converting ID from string to int: " + err.Error()))
+	}
+	err = repo.TH.TournamentStore.DeleteTournament(id)
+	if err != nil {
+		w.Write([]byte("error deleting tournament: " + err.Error()))
+		// TODO: Render some error page or the tournament details page
+	}
+
+	td := types.TemplateData{
+		PageName: "Deleted",
+	}
+
+	repo.RR.Render(w, r, "tournament-deleted.go.html", td)
 }
