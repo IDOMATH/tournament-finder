@@ -61,6 +61,7 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
 		w.Write([]byte("error converting ID from string to int: " + err.Error()))
+		return
 	}
 	tournament, err := repo.TH.TournamentStore.GetTournamentById(id)
 	if err != nil {
@@ -80,11 +81,13 @@ func (repo *Repository) HandleDeleteTournament(w http.ResponseWriter, r *http.Re
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
 		w.Write([]byte("error converting ID from string to int: " + err.Error()))
+		return
 	}
 	err = repo.TH.TournamentStore.DeleteTournament(id)
 	if err != nil {
 		w.Write([]byte("error deleting tournament: " + err.Error()))
 		// TODO: Render some error page or the tournament details page
+		return
 	}
 
 	td := types.TemplateData{
