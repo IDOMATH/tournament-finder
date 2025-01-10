@@ -54,7 +54,7 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 
 	td.ObjectMap["tournaments"] = tournaments
 
-	//TODO: render template
+	repo.RR.Render(w, r, "all-tournaments.go.html", td)
 }
 
 func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.Request) {
