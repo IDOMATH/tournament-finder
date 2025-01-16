@@ -34,9 +34,14 @@ func (s *UserStore) InsertUser(user types.User) (int, error) {
 	return newId, nil
 }
 
-func (s *UserStore) GetUser(id int) (types.User, error) {
+func (s *UserStore) GetUserById(id int) (types.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
+	var u types.User
+
 	query := `select name, email from users where id = $1`
+
+	err := s.Db.QueryRowContext(ctx, query, id).Scan(&u.Name, &u.Email)
+	return u, err
 }
