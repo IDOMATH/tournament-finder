@@ -33,3 +33,10 @@ func (s *UserStore) InsertUser(user types.User) (int, error) {
 	}
 	return newId, nil
 }
+
+func (s *UserStore) GetUser(id int) (types.User, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	query := `select name, email from users where id = $1`
+}
