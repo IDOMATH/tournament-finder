@@ -45,3 +45,13 @@ func (s *UserStore) GetUserById(id int) (types.User, error) {
 	err := s.Db.QueryRowContext(ctx, query, id).Scan(&u.Name, &u.Email)
 	return u, err
 }
+
+func (s *UserStore) UpdateUser(u types.User, id int) (types.User, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var updatedUser types.User
+
+	query := `upate users set name = $1, email = $1 where id = $3`
+
+}
