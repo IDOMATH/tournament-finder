@@ -52,6 +52,11 @@ func (s *UserStore) UpdateUser(u types.User, id int) (types.User, error) {
 
 	var updatedUser types.User
 
-	query := `upate users set name = $1, email = $1 where id = $3`
+	query := `upate users set name = $1, email = $1 where id = $3
+			  returning name, email, id`
+
+	err := s.Db.QueryRowContext(ctx, query, u.Name, u.Email, u.Id).Scan(&updatedUser.Name, &updatedUser.Email, &updatedUser.Id)
+
+	return updatedUser, err
 
 }
