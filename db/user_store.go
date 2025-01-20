@@ -60,3 +60,13 @@ func (s *UserStore) UpdateUser(u types.User, id int) (types.User, error) {
 	return updatedUser, err
 
 }
+
+func (s *UserStore) DeleteUser(id int) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	query := `delete from users where id = $1`
+
+	_, err := s.Db.ExecContext(ctx, query, id)
+	return err
+}
