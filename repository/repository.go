@@ -10,6 +10,7 @@ import (
 type Repository struct {
 	RR render.Renderer
 	TH TournamentHandler
+	UH UserHandler
 }
 
 func (repo *Repository) HandleHome(w http.ResponseWriter, r *http.Request) {
