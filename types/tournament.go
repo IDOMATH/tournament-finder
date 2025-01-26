@@ -7,9 +7,12 @@ import (
 )
 
 type Tournament struct {
-	Name        string
-	Host        Location
-	Organizer   Contact
+	Name            string
+	LocationName    string
+	LocationAddress string
+	OrganizerName   string
+	OrganizerEmail  string
+
 	AgeDivision [8]bool
 }
 
