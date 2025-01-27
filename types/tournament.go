@@ -7,6 +7,7 @@ import (
 )
 
 type Tournament struct {
+	Id              int
 	Name            string
 	LocationName    string
 	LocationAddress string

@@ -24,10 +24,18 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	defer cancel()
 
 	var newId int
-	//TODO: figure out how we want to store this all in a database.
-	statement := `insert into tournaments `
+	statement := `
+	insert into tournaments 
+	(name, location_name, location_address, organizer_name, organizer_email, age_division) 
+	values ($1, $2, $3, $4, $5, $6)`
 
-	err := s.DB.QueryRowContext(ctx, statement).Scan(&newId)
+	err := s.DB.QueryRowContext(ctx, statement,
+		tournament.Name,
+		tournament.LocationName,
+		tournament.LocationAddress,
+		tournament.OrganizerName,
+		tournament.OrganizerEmail,
+		tournament.AgeDivisionArrayToInt()).Scan(&newId)
 
 	if err != nil {
 		return 0, err
@@ -41,12 +49,20 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 
 	var updatedTournament types.Tournament
 
-	//TODO: add fields to statement and execution
-	statement := `update tournaments set ... where id = $1`
+	statement := `update tournaments 
+	set name = $1, location_name = $2, location_address = $3, organizer_name = $4, organizer_email = $5, age_division = $6 
+	where id = $7`
 
-	res, err := s.DB.ExecContext(ctx, statement)
+	err := s.DB.QueryRowContext(ctx, statement,
+		tournament.Name,
+		tournament.LocationName,
+		tournament.LocationAddress,
+		tournament.OrganizerName,
+		tournament.OrganizerEmail,
+		tournament.AgeDivisionArrayToInt(),
+		tournament.Id).Scan(&updatedTournament)
 
-	fmt.Println(res)
+	fmt.Println(updatedTournament)
 
 	if err != nil {
 		return updatedTournament, err
