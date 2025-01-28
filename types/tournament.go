@@ -39,7 +39,7 @@ func (t Tournament) AgeDivisionArrayToInt() int {
 }
 
 // TODO: Change this to make it more general
-func (t Tournament) AgeDivisionIntToArray(val int) [8]bool {
+func (t *Tournament) AgeDivisionIntToArray(val int) {
 	var arr [8]bool
 	for i := 7; i >= 0; i-- {
 		if val >= formulas.IntPow(2, i) {
@@ -47,7 +47,7 @@ func (t Tournament) AgeDivisionIntToArray(val int) [8]bool {
 			val -= formulas.IntPow(2, i)
 		}
 	}
-	return arr
+	t.AgeDivision = arr
 }
 
 type Location struct {

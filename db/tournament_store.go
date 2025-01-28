@@ -77,8 +77,7 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 
 	var tournaments []types.Tournament
 
-	//TODO: figure out fields in database
-	query := `select * from tournaments`
+	query := `select name, location_name, location_address, organizer_name, organizer_email, age_division from tournaments`
 
 	rows, err := s.DB.QueryContext(ctx, query)
 	if err != nil {
@@ -86,11 +85,19 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 	}
 	defer rows.Close()
 
+	var ageDivision int
+
 	for rows.Next() {
 		var tournament types.Tournament
 		err := rows.Scan(
 			&tournament.Name,
+			&tournament.LocationName,
+			&tournament.LocationAddress,
+			&tournament.OrganizerName,
+			&tournament.OrganizerName,
+			&ageDivision,
 		)
+		tournament.AgeDivisionIntToArray(ageDivision)
 		if err != nil {
 			return tournaments, err
 		}
