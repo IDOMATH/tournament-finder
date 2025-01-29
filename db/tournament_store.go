@@ -118,7 +118,17 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	var tournament types.Tournament
 	query := `select * from tournaments where id = $1`
 
-	err := s.DB.QueryRowContext(ctx, query, id).Scan(tournament)
+	var ageDivision int
+
+	err := s.DB.QueryRowContext(ctx, query, id).Scan(
+		&tournament.Name,
+		&tournament.LocationName,
+		&tournament.LocationAddress,
+		&tournament.OrganizerName,
+		&tournament.OrganizerName,
+		&ageDivision,
+	)
+	tournament.AgeDivisionIntToArray(ageDivision)
 	if err != nil {
 		return tournament, err
 	}
