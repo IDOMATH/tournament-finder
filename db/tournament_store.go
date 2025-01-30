@@ -139,12 +139,8 @@ func (s *TournamentStore) DeleteTournament(id int) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	var tournament types.Tournament
 	query := `DELETE FROM tournaments where id = $1`
 
-	err := s.DB.QueryRowContext(ctx, query, id).Scan(tournament)
-	if err != nil {
-		return err
-	}
-	return nil
+	_, err := s.DB.ExecContext(ctx, query, id)
+	return err
 }
