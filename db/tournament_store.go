@@ -129,10 +129,7 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 		&ageDivision,
 	)
 	tournament.AgeDivisionIntToArray(ageDivision)
-	if err != nil {
-		return tournament, err
-	}
-	return tournament, nil
+	return tournament, err
 }
 
 func (s *TournamentStore) DeleteTournament(id int) error {
