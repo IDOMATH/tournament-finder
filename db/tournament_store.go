@@ -26,7 +26,8 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	var newId int
 	statement := `
 	insert into tournaments 
-	(name, location_name, location_address, organizer_name, organizer_email, age_division) 
+	(name, location_name, location_address, organizer_name, 
+	organizer_email, age_division) 
 	values ($1, $2, $3, $4, $5, $6)`
 
 	err := s.DB.QueryRowContext(ctx, statement,
@@ -50,7 +51,8 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 	var updatedTournament types.Tournament
 
 	statement := `update tournaments 
-	set name = $1, location_name = $2, location_address = $3, organizer_name = $4, organizer_email = $5, age_division = $6 
+	set name = $1, location_name = $2, location_address = $3, 
+	organizer_name = $4, organizer_email = $5, age_division = $6 
 	where id = $7`
 
 	err := s.DB.QueryRowContext(ctx, statement,
@@ -77,7 +79,8 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 
 	var tournaments []types.Tournament
 
-	query := `select name, location_name, location_address, organizer_name, organizer_email, age_division from tournaments`
+	query := `select name, location_name, location_address, organizer_name, 
+	organizer_email, age_division from tournaments`
 
 	rows, err := s.DB.QueryContext(ctx, query)
 	if err != nil {
