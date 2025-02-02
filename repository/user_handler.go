@@ -13,7 +13,7 @@ type UserHandler struct {
 	UserStore db.UserStore
 }
 
-func (repo *Repository) HandleGetUser(w http.ResponseWriter, r *http.Request) {
+func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
 		w.Write([]byte("error converting id"))
