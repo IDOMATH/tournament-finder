@@ -29,7 +29,7 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 	w.Write([]byte(fmt.Sprintf("getting user with id: %d", user.Id)))
 }
 
-func (repo *Repository) HandlePosNewUser(w http.ResponseWriter, r *http.Request) {
+func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request) {
 	var user types.User
 
 	user.Email = r.FormValue("email")
