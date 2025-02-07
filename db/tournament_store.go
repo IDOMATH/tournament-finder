@@ -97,7 +97,7 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 			&tournament.LocationName,
 			&tournament.LocationAddress,
 			&tournament.OrganizerName,
-			&tournament.OrganizerName,
+			&tournament.OrganizerEmail,
 			&ageDivision,
 		)
 		tournament.AgeDivisionIntToArray(ageDivision)
@@ -119,7 +119,8 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	defer cancel()
 
 	var tournament types.Tournament
-	query := `select * from tournaments where id = $1`
+	query := `select name, location_name, location_address, organizer_name, 
+	organizer_email, age_division from tournaments where id = $1`
 
 	var ageDivision int
 
@@ -128,7 +129,7 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 		&tournament.LocationName,
 		&tournament.LocationAddress,
 		&tournament.OrganizerName,
-		&tournament.OrganizerName,
+		&tournament.OrganizerEmail,
 		&ageDivision,
 	)
 	tournament.AgeDivisionIntToArray(ageDivision)
