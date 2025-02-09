@@ -23,11 +23,11 @@ func (s *UserStore) InsertUser(user types.User) (int, error) {
 	defer cancel()
 
 	var newId int
-	statement := `insert into users (name, email, created_at) values ($1, $2, $3)`
+	statement := `insert into users (name, email, updated_at, created_at) values ($1, $2, $3)`
 
 	err := s.Db.QueryRowContext(ctx, statement,
 		user.Name,
-		user.Email, time.Now()).Scan(&newId)
+		user.Email, time.Now(), time.Now()).Scan(&newId)
 	if err != nil {
 		return 0, err
 	}
@@ -52,10 +52,10 @@ func (s *UserStore) UpdateUser(u types.User, id int) (types.User, error) {
 
 	var updatedUser types.User
 
-	query := `upate users set name = $1, email = $1 where id = $3
+	query := `upate users set name = $1, email = $1, updated_at = $4 where id = $3
 			  returning name, email, id`
 
-	err := s.Db.QueryRowContext(ctx, query, u.Name, u.Email, u.Id).Scan(&updatedUser.Name, &updatedUser.Email, &updatedUser.Id)
+	err := s.Db.QueryRowContext(ctx, query, u.Name, u.Email, time.Now(), u.Id).Scan(&updatedUser.Name, &updatedUser.Email, &updatedUser.Id)
 
 	return updatedUser, err
 

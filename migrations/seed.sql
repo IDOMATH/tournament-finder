@@ -12,5 +12,6 @@ CREATE TABLE users (
     id serial PRIMARY KEY,
     name VARCHAR(255)
     email VARCHAR(320),
+    updated_at TIMESTAMP,
     created_at TIMESTAMP
 )
