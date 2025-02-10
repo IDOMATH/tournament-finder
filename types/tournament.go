@@ -11,8 +11,7 @@ type Tournament struct {
 	Name            string
 	LocationName    string
 	LocationAddress string
-	OrganizerName   string
-	OrganizerEmail  string
+	OrganizerId     int
 
 	AgeDivision [8]bool
 }

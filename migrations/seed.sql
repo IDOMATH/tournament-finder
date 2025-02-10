@@ -3,8 +3,7 @@ CREATE TABLE tournaments (
     name VARCHAR(50),
     location_name VARCHAR(255),
     location_address VARCHAR(255),
-    organizer_name VARCHAR(50),
-    organizer_email VARCHAR(320),
+    organizer_id INTEGER,
     age_division INTEGER
 )
 
