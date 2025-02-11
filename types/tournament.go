@@ -12,6 +12,7 @@ type Tournament struct {
 	LocationName    string
 	LocationAddress string
 	OrganizerId     int
+	IsFull          bool
 
 	AgeDivision [8]bool
 }

@@ -4,6 +4,7 @@ CREATE TABLE tournaments (
     location_name VARCHAR(255),
     location_address VARCHAR(255),
     organizer_id INTEGER,
+    is_full BOOLEAN,
     age_division INTEGER
 )
 

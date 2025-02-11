@@ -26,7 +26,7 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	var newId int
 	statement := `
 	insert into tournaments 
-	(name, location_name, location_address, organizer_id, age_division) 
+	(name, location_name, location_address, organizer_id, age_division, is_full) 
 	values ($1, $2, $3, $4, $5, $6)`
 
 	err := s.DB.QueryRowContext(ctx, statement,
@@ -34,7 +34,8 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 		tournament.LocationName,
 		tournament.LocationAddress,
 		tournament.OrganizerId,
-		tournament.AgeDivisionArrayToInt()).Scan(&newId)
+		tournament.AgeDivisionArrayToInt(),
+		tournament.IsFull).Scan(&newId)
 
 	if err != nil {
 		return 0, err
@@ -50,8 +51,8 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 
 	statement := `update tournaments 
 	set name = $1, location_name = $2, location_address = $3, 
-	organizer_id = $4, age_division = $5 
-	where id = $6`
+	organizer_id = $4, age_division = $5, is_full = $6
+	where id = $7`
 
 	err := s.DB.QueryRowContext(ctx, statement,
 		tournament.Name,
@@ -59,6 +60,7 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 		tournament.LocationAddress,
 		tournament.OrganizerId,
 		tournament.AgeDivisionArrayToInt(),
+		tournament.IsFull,
 		tournament.Id).Scan(&updatedTournament)
 
 	fmt.Println(updatedTournament)
@@ -76,7 +78,7 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 
 	var tournaments []types.Tournament
 
-	query := `select name, location_name, location_address, organizer_id, age_division 
+	query := `select name, location_name, location_address, organizer_id, age_division, is_full 
 	from tournaments`
 
 	rows, err := s.DB.QueryContext(ctx, query)
@@ -95,6 +97,7 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 			&tournament.LocationAddress,
 			&tournament.OrganizerId,
 			&ageDivision,
+			&tournament.IsFull,
 		)
 		tournament.AgeDivisionIntToArray(ageDivision)
 		if err != nil {
@@ -116,7 +119,7 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 
 	var tournament types.Tournament
 	query := `select name, location_name, location_address, organizer_id,
-	 age_division from tournaments where id = $1`
+	 age_division, is_full from tournaments where id = $1`
 
 	var ageDivision int
 
@@ -126,6 +129,7 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 		&tournament.LocationAddress,
 		&tournament.OrganizerId,
 		&ageDivision,
+		&tournament.IsFull,
 	)
 	tournament.AgeDivisionIntToArray(ageDivision)
 	return tournament, err
