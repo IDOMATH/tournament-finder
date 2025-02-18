@@ -23,14 +23,14 @@ func (repo *Repository) HandleGetNewTournamentForm(w http.ResponseWriter, r *htt
 
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
 	var tournament types.Tournament
-	tournament.Name = r.FormValue("Name")
+	tournament.Name = r.FormValue("name")
 
 	repo.TH.TournamentStore.InsertTournament(tournament)
 }
 
 func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Request) {
 	var tournament types.Tournament
-	tournament.Name = r.FormValue("Name")
+	tournament.Name = r.FormValue("name")
 
 	repo.TH.TournamentStore.UpdateTournament(tournament)
 
