@@ -2,6 +2,7 @@ package types
 
 import (
 	"math"
+	"time"
 
 	"github.com/IDOMATH/CheetahMath/formulas"
 )
@@ -13,6 +14,8 @@ type Tournament struct {
 	LocationAddress string
 	OrganizerId     int
 	IsFull          bool
+	StartDate       time.Time
+	EndDate         time.Time
 
 	AgeDivision [8]bool
 }

@@ -1,0 +1,54 @@
+<p>new-tournament-form works!</p>
+<form (ngSubmit)="onSubmit()">
+  <p>
+    <label for="tournament-name">Tournament Name</label>
+    <input
+      type="text"
+      id="tournament-name"
+      name="tournament-name"
+      [(ngModel)]="enteredTournamentName"
+    />
+  </p>
+
+  <p>
+    <label for="location-name">Location Name</label>
+    <input
+      type="text"
+      id="location-name"
+      name="location-name"
+      [(ngModel)]="enteredLocationName"
+    />
+  </p>
+
+  <p>
+    <label for="location-address">Address</label>
+    <input
+      type="text"
+      id="location-address"
+      name="location-address"
+      [(ngModel)]="enteredLocationAddress"
+    />
+  </p>
+
+  <p>
+    <label for="start-date">Start Date</label>
+    <input
+      type="date"
+      id="start-date"
+      name="start-date"
+      [(ngModel)]="enteredStartDate"
+    />
+  </p>
+
+  <p>
+    <label for="end-date">End Date</label>
+    <input
+      type="date"
+      id="end-date"
+      name="end-date"
+      [(ngModel)]="enteredEndDate"
+    />
+  </p>
+
+  <button type="submit">Calculate</button>
+</form>
