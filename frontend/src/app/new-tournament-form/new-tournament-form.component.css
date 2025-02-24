@@ -1,0 +1,9 @@
+input,
+textarea {
+width: 100%;
+font: inherit;
+padding: 0.15rem 0.25rem;
+border-radius: 4px;
+border: 1px solid #ab9ac0;
+background-color: #d0c2e1;
+}

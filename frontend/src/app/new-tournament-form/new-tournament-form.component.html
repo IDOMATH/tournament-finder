@@ -1,4 +1,3 @@
-<p>new-tournament-form works!</p>
 <form (ngSubmit)="onSubmit()">
   <p>
     <label for="tournament-name">Tournament Name</label>
@@ -12,12 +11,13 @@
 
   <p>
     <label for="location-name">Location Name</label>
-    <input
+    <textarea
       type="text"
+      rows="5"
       id="location-name"
       name="location-name"
       [(ngModel)]="enteredLocationName"
-    />
+    ></textarea>
   </p>
 
   <p>
@@ -50,5 +50,5 @@
     />
   </p>
 
-  <button type="submit">Calculate</button>
+  <button type="submit">Create Tournament</button>
 </form>
