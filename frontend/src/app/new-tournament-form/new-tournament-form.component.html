@@ -1,54 +1,58 @@
 <form (ngSubmit)="onSubmit()">
-  <p>
-    <label for="tournament-name">Tournament Name</label>
-    <input
-      type="text"
-      id="tournament-name"
-      name="tournament-name"
-      [(ngModel)]="enteredTournamentName"
-    />
-  </p>
+  <div class="input-group">
+    <p>
+      <label for="tournament-name">Tournament Name</label>
+      <input
+        type="text"
+        id="tournament-name"
+        name="tournament-name"
+        [(ngModel)]="enteredTournamentName"
+      />
+    </p>
+  </div>
+  <div class="input-group">
+    <p>
+      <label for="location-name">Location Name</label>
+      <input
+        type="text"
+        id="location-name"
+        name="location-name"
+        [(ngModel)]="enteredLocationName"
+      />
+    </p>
+  </div>
+  <div class="input-group">
+    <p>
+      <label for="location-address">Address</label>
+      <textarea
+        type="text"
+        rows="5"
+        id="location-address"
+        name="location-address"
+        [(ngModel)]="enteredLocationAddress"
+      ></textarea>
+    </p>
+  </div>
+  <div class="input-group">
+    <p>
+      <label for="start-date">Start Date</label>
+      <input
+        type="date"
+        id="start-date"
+        name="start-date"
+        [(ngModel)]="enteredStartDate"
+      />
+    </p>
 
-  <p>
-    <label for="location-name">Location Name</label>
-    <textarea
-      type="text"
-      rows="5"
-      id="location-name"
-      name="location-name"
-      [(ngModel)]="enteredLocationName"
-    ></textarea>
-  </p>
-
-  <p>
-    <label for="location-address">Address</label>
-    <input
-      type="text"
-      id="location-address"
-      name="location-address"
-      [(ngModel)]="enteredLocationAddress"
-    />
-  </p>
-
-  <p>
-    <label for="start-date">Start Date</label>
-    <input
-      type="date"
-      id="start-date"
-      name="start-date"
-      [(ngModel)]="enteredStartDate"
-    />
-  </p>
-
-  <p>
-    <label for="end-date">End Date</label>
-    <input
-      type="date"
-      id="end-date"
-      name="end-date"
-      [(ngModel)]="enteredEndDate"
-    />
-  </p>
-
+    <p>
+      <label for="end-date">End Date</label>
+      <input
+        type="date"
+        id="end-date"
+        name="end-date"
+        [(ngModel)]="enteredEndDate"
+      />
+    </p>
+  </div>
   <button type="submit">Create Tournament</button>
 </form>
