@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"encoding/json"
 	"net/http"
 	"strconv"
 
@@ -17,7 +18,6 @@ func (repo *Repository) HandleGetNewTournamentForm(w http.ResponseWriter, r *htt
 		PageName:  "New Tournament",
 		ObjectMap: make(map[string]interface{}),
 	}
-
 	repo.RR.Render(w, r, "tournament-form.go.html", td)
 }
 
@@ -25,7 +25,17 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	var tournament types.Tournament
 	tournament.Name = r.FormValue("name")
 
-	repo.TH.TournamentStore.InsertTournament(tournament)
+	id, err := repo.TH.TournamentStore.InsertTournament(tournament)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusCreated)
+	res, err := json.Marshal(id)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
+	w.Write(res)
 }
 
 func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Request) {
