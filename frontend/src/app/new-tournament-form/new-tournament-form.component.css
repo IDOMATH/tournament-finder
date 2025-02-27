@@ -23,3 +23,20 @@ form {
     gap: 1.5rem;
 }
   
+  
+button {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #76c0ae;
+    border-radius: 0.25rem;
+    background-color: #83e6c0;
+    color: #1a1f1d;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+  
+button:hover {
+    background-color: #aaf1d6;
+}
