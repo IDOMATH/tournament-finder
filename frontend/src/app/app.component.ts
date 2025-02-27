@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { NewTournamentFormComponent } from "./new-tournament-form/new-tournament-form.component";
+import { HeaderComponent } from "./header/header.component";
 
 @Component({
   selector: "app-root",
-  imports: [RouterOutlet, NewTournamentFormComponent],
+  imports: [RouterOutlet, NewTournamentFormComponent, HeaderComponent],
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
 })
