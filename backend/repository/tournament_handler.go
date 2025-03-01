@@ -30,11 +30,12 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	w.WriteHeader(http.StatusCreated)
 	res, err := json.Marshal(id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
+	w.WriteHeader(http.StatusCreated)
 	w.Write(res)
 }
 
@@ -42,13 +43,18 @@ func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Reque
 	var tournament types.Tournament
 	tournament.Name = r.FormValue("name")
 
-	repo.TH.TournamentStore.UpdateTournament(tournament)
-
-	td := types.TemplateData{
-		PageName: tournament.Name,
+	updatedTournament, err := repo.TH.TournamentStore.UpdateTournament(tournament)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
-
-	repo.RR.Render(w, r, "tournament.go.html", td)
+	res, err := json.Marshal(updatedTournament)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write(res)
 }
 
 func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Request) {
