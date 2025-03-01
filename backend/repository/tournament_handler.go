@@ -58,19 +58,18 @@ func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Reque
 }
 
 func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Request) {
-	td := types.TemplateData{
-		PageName:  "All Tournaments",
-		ObjectMap: make(map[string]interface{}),
-	}
 	tournaments, err := repo.TH.TournamentStore.GetAllTournaments()
 	if err != nil {
-		w.Write([]byte(err.Error()))
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
-	td.ObjectMap["tournaments"] = tournaments
-
-	repo.RR.Render(w, r, "all-tournaments.go.html", td)
+	resTourments, err := json.Marshal(tournaments)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+	w.Write(resTourments)
 }
 
 func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.Request) {
