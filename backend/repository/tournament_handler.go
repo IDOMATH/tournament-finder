@@ -75,20 +75,22 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
-		w.Write([]byte("error converting ID from string to int: " + err.Error()))
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("invalid id"))
 		return
 	}
 	tournament, err := repo.TH.TournamentStore.GetTournamentById(id)
 	if err != nil {
-		w.Write([]byte(err.Error()))
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	td := types.TemplateData{
-		PageName:  tournament.Name,
-		ObjectMap: make(map[string]interface{}),
+	resTournament, err := json.Marshal(tournament)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
-
-	repo.RR.Render(w, r, "tournament.go.html", td)
+	w.WriteHeader(http.StatusOK)
+	w.Write(resTournament)
 }
 
 func (repo *Repository) HandleDeleteTournament(w http.ResponseWriter, r *http.Request) {
