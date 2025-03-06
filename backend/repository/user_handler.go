@@ -16,12 +16,14 @@ type UserHandler struct {
 func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error converting id"))
 		return
 	}
 
 	user, err := repo.UH.UserStore.GetUserById(id)
 	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error getting user"))
 		return
 	}
