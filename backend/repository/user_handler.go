@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -27,8 +28,14 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 		w.Write([]byte("error getting user"))
 		return
 	}
+	resUser, err := json.Marshal(user)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
-	w.Write([]byte(fmt.Sprintf("getting user with id: %d", user.Id)))
+	w.WriteHeader(http.StatusOK)
+	w.Write(resUser)
 }
 
 func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request) {
@@ -39,10 +46,10 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 
 	newId, err := repo.UH.UserStore.InsertUser(user)
 	if err != nil {
-		w.Write([]byte("error inserting user"))
-		w.Write([]byte(err.Error()))
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
+	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(fmt.Sprintf("Inserted user with ID: %d", newId)))
 }
