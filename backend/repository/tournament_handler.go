@@ -33,6 +33,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	res, err := json.Marshal(id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("error marhalling json"))
 		return
 	}
 	w.WriteHeader(http.StatusCreated)
@@ -51,6 +52,7 @@ func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Reque
 	res, err := json.Marshal(updatedTournament)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("error marhalling json"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
@@ -66,6 +68,7 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 	resTourments, err := json.Marshal(tournaments)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("error marhalling json"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
@@ -87,6 +90,7 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 	resTournament, err := json.Marshal(tournament)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("error marhalling json"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
