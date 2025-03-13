@@ -31,7 +31,7 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 	resUser, err := json.Marshal(user)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("error marhalling json"))
+		w.Write([]byte("error marshalling json"))
 		return
 	}
 
