@@ -113,6 +113,32 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 	return tournaments, nil
 }
 
+func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.Tournament, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var tournaments []types.Tournament
+	numActiveFilters := 0
+	var activeFilters []any
+
+	query := `select name, location_name, location_address, organizer_id,
+	 age_division, is_full from tournaments where`
+
+	if filter.Name != "" {
+		numActiveFilters++
+		query = query + fmt.Sprintf("name = $%d", numActiveFilters)
+		activeFilters = append(activeFilters, filter.Name)
+	}
+
+	rows, err := s.DB.QueryContext(ctx, query, activeFilters...)
+	if err != nil {
+		return tournaments, err
+	}
+	defer rows.Close()
+
+	return tournaments, nil
+}
+
 func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
