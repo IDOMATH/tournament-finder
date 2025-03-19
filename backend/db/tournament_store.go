@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"fmt"
 	"time"
 
@@ -118,16 +119,24 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 	defer cancel()
 
 	var tournaments []types.Tournament
-	numActiveFilters := 0
 	var activeFilters []any
 
 	query := `select name, location_name, location_address, organizer_id,
 	 age_division, is_full from tournaments where`
 
+	// This might want to be LIKE instead of =
 	if filter.Name != "" {
-		numActiveFilters++
-		query = query + fmt.Sprintf("name = $%d", numActiveFilters)
 		activeFilters = append(activeFilters, filter.Name)
+		query = query + fmt.Sprintf("name = $%d", len(activeFilters)+1)
+	}
+
+	if !filter.StartDate.IsZero() {
+		activeFilters = append(activeFilters, filter.StartDate)
+		query = query + fmt.Sprintf("start_date = %d", len(activeFilters)+1)
+	}
+
+	if len(activeFilters) == 0 {
+		return tournaments, errors.New("no filters given")
 	}
 
 	rows, err := s.DB.QueryContext(ctx, query, activeFilters...)
