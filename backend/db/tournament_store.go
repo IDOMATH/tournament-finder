@@ -135,6 +135,19 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 		query = query + fmt.Sprintf("start_date = %d", len(activeFilters)+1)
 	}
 
+	if !filter.EndDate.IsZero() {
+		activeFilters = append(activeFilters, filter.EndDate)
+		query = query + fmt.Sprintf("end_date = %d", len(activeFilters)+1)
+	}
+
+	if filter.AgeDivisionArrayToInt() != 0 {
+		activeFilters = append(activeFilters, filter.AgeDivisionArrayToInt())
+		query = query + fmt.Sprintf("age_division = %d", len(activeFilters)+1)
+	}
+
+	// Think about adding query for location name and possibly breaking location up
+	// for filtering on things like state
+
 	if len(activeFilters) == 0 {
 		return tournaments, errors.New("no filters given")
 	}
