@@ -12,6 +12,7 @@ type Tournament struct {
 	Name            string
 	LocationName    string
 	LocationAddress string
+	LocationState   string
 	OrganizerId     int
 	IsFull          bool
 	StartDate       time.Time
