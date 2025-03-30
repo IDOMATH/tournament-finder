@@ -8,8 +8,6 @@ import (
 	"github.com/IDOMATH/tournament-finder/db"
 	"github.com/IDOMATH/tournament-finder/repository"
 	"github.com/IDOMATH/tournament-finder/util"
-
-	render "github.com/IDOMATH/CheetahRender/Render"
 )
 
 func main() {
@@ -35,17 +33,12 @@ func main() {
 	fmt.Println("Connected to Postgres")
 
 	repo := repository.Repository{}
-	rr := render.NewRenderer("./templates", ".go.html", "./templates/partials", ".go.html", true)
-
-	repo.RR = *rr
 
 	TournamentStore := *db.NewTournamentStore(postgresDb.SQL)
 	repo.TH = repository.TournamentHandler{TournamentStore: TournamentStore}
 
-	router.HandleFunc("GET /", repo.HandleHome)
 	router.HandleFunc("GET /tournaments", repo.HandleGetTournaments)
-	router.HandleFunc("GET /new-tournament", repo.HandleGetNewTournamentForm)
-	router.HandleFunc("POST /new-tournament", repo.HandlePostTournament)
+	router.HandleFunc("POST /tournaments", repo.HandlePostTournament)
 	router.HandleFunc("PUT /tournaments/{id}", repo.HandlePutTournament)
 	router.HandleFunc("GET /tournaments/{id}", repo.HandleGetTournamentById)
 	router.HandleFunc("DELETE /tournaments/{id}", repo.HandleDeleteTournament)
