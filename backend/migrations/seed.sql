@@ -2,7 +2,9 @@ CREATE TABLE tournaments (
     id serial PRIMARY KEY,
     name VARCHAR(50),
     location_name VARCHAR(255),
-    location_address VARCHAR(255),
+    street_address VARCHAR(255),
+    city VARCHAR(50),
+    state VARCHAR(13),
     organizer_id INTEGER,
     is_full BOOLEAN,
     age_division INTEGER

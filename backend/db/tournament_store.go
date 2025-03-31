@@ -27,14 +27,15 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	var newId int
 	statement := `
 	insert into tournaments 
-	(name, location_name, location_address, location_state, organizer_id, age_division, is_full) 
-	values ($1, $2, $3, $4, $5, $6, $7)`
+	(name, location_name, street_address, city, state, organizer_id, age_division, is_full) 
+	values ($1, $2, $3, $4, $5, $6, $7, $8)`
 
 	err := s.DB.QueryRowContext(ctx, statement,
 		tournament.Name,
 		tournament.LocationName,
-		tournament.LocationAddress,
-		tournament.LocationState,
+		tournament.StreetAddress,
+		tournament.City,
+		tournament.State,
 		tournament.OrganizerId,
 		tournament.AgeDivisionArrayToInt(),
 		tournament.IsFull).Scan(&newId)
@@ -53,15 +54,16 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 
 	statement := `update tournaments 
 	set name = $1, location_name = $2,
-	location_address = $3, location_state = $4,
-	organizer_id = $4, age_division = $5, is_full = $6
-	where id = $7`
+	street_address = $3, city = $4, state = $5,
+	organizer_id = $6, age_division = $7, is_full = $7
+	where id = $9`
 
 	err := s.DB.QueryRowContext(ctx, statement,
 		tournament.Name,
 		tournament.LocationName,
-		tournament.LocationAddress,
-		tournament.LocationState,
+		tournament.StreetAddress,
+		tournament.City,
+		tournament.State,
 		tournament.OrganizerId,
 		tournament.AgeDivisionArrayToInt(),
 		tournament.IsFull,
@@ -84,7 +86,7 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 
 	// TODO: Add pagination
 	query := `select name, location_name,
-	location_address, location_state,
+	street_address, city, state,
 	organizer_id, age_division, is_full 
 	from tournaments`
 
@@ -101,8 +103,9 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 		err := rows.Scan(
 			&tournament.Name,
 			&tournament.LocationName,
-			&tournament.LocationAddress,
-			&tournament.LocationState,
+			&tournament.StreetAddress,
+			&tournament.City,
+			&tournament.State,
 			&tournament.OrganizerId,
 			&ageDivision,
 			&tournament.IsFull,
@@ -129,7 +132,7 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 	var activeFilters []any
 
 	query := `select name, location_name, 
-	location_address, , location_state,
+	street_address, city, state,
 	organizer_id, age_division, is_full 
 	from tournaments where`
 
@@ -139,8 +142,18 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 		query = query + fmt.Sprintf("name = $%d", len(activeFilters)+1)
 	}
 
-	if filter.LocationState != "" {
-		activeFilters = append(activeFilters, filter.LocationState)
+	if filter.StreetAddress != "" {
+		activeFilters = append(activeFilters, filter.StreetAddress)
+		query = query + fmt.Sprintf("street_address = $%d", len(activeFilters)+1)
+	}
+
+	if filter.City != "" {
+		activeFilters = append(activeFilters, filter.City)
+		query = query + fmt.Sprintf("city = $%d", len(activeFilters)+1)
+	}
+
+	if filter.State != "" {
+		activeFilters = append(activeFilters, filter.State)
 		query = query + fmt.Sprintf("location_state = $%d", len(activeFilters)+1)
 	}
 
@@ -179,8 +192,9 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 		err := rows.Scan(
 			&tournament.Name,
 			&tournament.LocationName,
-			&tournament.LocationAddress,
-			&tournament.LocationState,
+			&tournament.StreetAddress,
+			&tournament.City,
+			&tournament.State,
 			&tournament.OrganizerId,
 			&ageDivision,
 			&tournament.IsFull,
@@ -201,7 +215,7 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 
 	var tournament types.Tournament
 	query := `select name, location_name,
-	location_address, location_state,
+	street_address, city, state,
 	organizer_id, age_division, is_full 
 	from tournaments where id = $1`
 
@@ -210,7 +224,9 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	err := s.DB.QueryRowContext(ctx, query, id).Scan(
 		&tournament.Name,
 		&tournament.LocationName,
-		&tournament.LocationAddress,
+		&tournament.StreetAddress,
+		&tournament.City,
+		&tournament.State,
 		&tournament.OrganizerId,
 		&ageDivision,
 		&tournament.IsFull,
