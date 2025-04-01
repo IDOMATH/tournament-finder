@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
-import { NewTournamentFormComponent } from "./new-tournament-form/new-tournament-form.component";
+import { NewTournamentFormComponent } from "./tournaments/new-tournament-form/new-tournament-form.component";
 import { HeaderComponent } from "./header/header.component";
 
 @Component({

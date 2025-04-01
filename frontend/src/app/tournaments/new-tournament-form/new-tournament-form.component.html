@@ -18,14 +18,21 @@
     />
   </p>
   <p>
-    <label for="location-address">Address</label>
-    <textarea
+    <label for="street-address">Address</label>
+    <input
       type="text"
-      rows="5"
-      id="location-address"
-      name="location-address"
-      [(ngModel)]="enteredLocationAddress"
-    ></textarea>
+      id="street-address"
+      name="street-address"
+      [(ngModel)]="enteredStreetAddress"
+    />
+  </p>
+  <p>
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" [(ngModel)]="enteredCity" />
+  </p>
+  <p>
+    <label for="state">State</label>
+    <input type="text" id="state" name="state" [(ngModel)]="enteredState" />
   </p>
   <div class="input-group">
     <p>

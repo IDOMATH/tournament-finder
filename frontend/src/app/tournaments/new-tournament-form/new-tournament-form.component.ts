@@ -10,7 +10,9 @@ import { FormsModule } from "@angular/forms";
 export class NewTournamentFormComponent {
   enteredTournamentName = "";
   enteredLocationName = "";
-  enteredLocationAddress = "";
+  enteredStreetAddress = "";
+  enteredCity = "";
+  enteredState = "";
   enteredStartDate = "";
   enteredEndDate = "";
 
