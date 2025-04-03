@@ -87,8 +87,10 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 	// TODO: Add pagination
 	query := `select name, location_name,
 	street_address, city, state,
-	organizer_id, age_division, is_full 
-	from tournaments`
+	organizer_id, age_division, is_full,
+	start_date
+	from tournaments
+	ORDER BY start_date`
 
 	rows, err := s.DB.QueryContext(ctx, query)
 	if err != nil {
