@@ -78,11 +78,13 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 	return updatedTournament, nil
 }
 
-func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
+func (s *TournamentStore) GetAllTournaments(page int) ([]types.Tournament, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	var tournaments []types.Tournament
+
+	offset := 25 * (page - 1)
 
 	// TODO: Add pagination
 	query := `select name, location_name,
@@ -90,9 +92,11 @@ func (s *TournamentStore) GetAllTournaments() ([]types.Tournament, error) {
 	organizer_id, age_division, is_full,
 	start_date
 	from tournaments
-	ORDER BY start_date`
+	ORDER BY start_date
+	LIMIT 25
+	OFFSET $1`
 
-	rows, err := s.DB.QueryContext(ctx, query)
+	rows, err := s.DB.QueryContext(ctx, query, offset)
 	if err != nil {
 		return tournaments, err
 	}
