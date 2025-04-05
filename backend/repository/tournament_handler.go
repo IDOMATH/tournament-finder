@@ -52,7 +52,12 @@ func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Reque
 }
 
 func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Request) {
-	tournaments, err := repo.TH.TournamentStore.GetAllTournaments()
+	pageNumber, err := strconv.Atoi(r.PathValue("page"))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	tournaments, err := repo.TH.TournamentStore.GetAllTournaments(pageNumber)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
