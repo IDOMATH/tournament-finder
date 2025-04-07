@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/IDOMATH/tournament-finder/db"
+	"github.com/IDOMATH/tournament-finder/middleware"
 	"github.com/IDOMATH/tournament-finder/repository"
 	"github.com/IDOMATH/tournament-finder/util"
 )
@@ -37,7 +38,7 @@ func main() {
 	TournamentStore := *db.NewTournamentStore(postgresDb.SQL)
 	repo.TH = repository.TournamentHandler{TournamentStore: TournamentStore}
 
-	router.HandleFunc("GET /tournaments", repo.HandleGetTournaments)
+	router.HandleFunc("GET /tournaments", middleware.Log(middleware.Authenticate(repo.HandleGetTournaments, &repo)))
 	router.HandleFunc("POST /tournaments", repo.HandlePostTournament)
 	router.HandleFunc("PUT /tournaments/{id}", repo.HandlePutTournament)
 	router.HandleFunc("GET /tournaments/{id}", repo.HandleGetTournamentById)
