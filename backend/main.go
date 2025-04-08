@@ -38,7 +38,9 @@ func main() {
 	TournamentStore := *db.NewTournamentStore(postgresDb.SQL)
 	repo.TH = repository.TournamentHandler{TournamentStore: TournamentStore}
 
-	router.HandleFunc("GET /tournaments", middleware.Log(middleware.Authenticate(repo.HandleGetTournaments, &repo)))
+	stack := []middleware.Middleware{middleware.Authenticate(&repo), middleware.Log()}
+
+	router.HandleFunc("GET /tournaments", middleware.Use(repo.HandleGetTournaments, stack...))
 	router.HandleFunc("POST /tournaments", repo.HandlePostTournament)
 	router.HandleFunc("PUT /tournaments/{id}", repo.HandlePutTournament)
 	router.HandleFunc("GET /tournaments/{id}", repo.HandleGetTournamentById)
