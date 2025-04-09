@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/IDOMATH/session/memorystore"
 	"github.com/IDOMATH/tournament-finder/db"
 	"github.com/IDOMATH/tournament-finder/middleware"
 	"github.com/IDOMATH/tournament-finder/repository"
@@ -37,6 +38,12 @@ func main() {
 
 	TournamentStore := *db.NewTournamentStore(postgresDb.SQL)
 	repo.TH = repository.TournamentHandler{TournamentStore: TournamentStore}
+
+	UserStore := *db.NewUserStore(postgresDb.SQL)
+	repo.UH = repository.UserHandler{UserStore: UserStore}
+
+	memstore := memorystore.New()
+	repo.Session = memstore
 
 	stack := []middleware.Middleware{middleware.Authenticate(&repo), middleware.Log()}
 
