@@ -6,5 +6,7 @@ github.com/IDOMATH/CheetahRender v0.0.0-20241025225127-fcba82dff1bb h1:k2fZWDG3n
 github.com/IDOMATH/CheetahRender v0.0.0-20241025225127-fcba82dff1bb/go.mod h1:IwAg6NvFWaD2RPrJ9z0ITJ/5noz6gZQmLyygjmK0T24=
 github.com/IDOMATH/CheetahRender v0.0.0-20241025230010-8b0fef378933 h1:7eH1Arc8fbQ/xJ+XFBwLpA9kw8kv0EJuvW33nUcnbLs=
 github.com/IDOMATH/CheetahRender v0.0.0-20241025230010-8b0fef378933/go.mod h1:IwAg6NvFWaD2RPrJ9z0ITJ/5noz6gZQmLyygjmK0T24=
+github.com/IDOMATH/session v0.0.0-20240621213231-2054073e1ced h1:+f/ifDxXTOJwROZ0NJ+xXn/t4JdH6FtNVun/xXOFlg4=
+github.com/IDOMATH/session v0.0.0-20240621213231-2054073e1ced/go.mod h1:+n0Dj1Z8SmmUNPxyXXqo2d1V+tyGpkXkCU/teExlm4E=
 github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
 github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
