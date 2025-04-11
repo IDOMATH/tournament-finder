@@ -15,8 +15,17 @@ export class NewTournamentFormComponent {
   enteredState = "";
   enteredStartDate = "";
   enteredEndDate = "";
+  enteredIsBoysVarsity = false;
+  enteredIsGirlsVarsity = false;
+  enteredIsBoysJv = false;
+  enteredIsGirlsJv = false;
+  enteredIsBoysMs = false;
+  enteredIsGirlsMs = false;
+  enteredIsBoysYouth = false;
+  enteredIsGirlsYouth = false;
 
   onSubmit() {
     console.log("submitting");
+    console.log(this.enteredIsBoysVarsity);
   }
 }

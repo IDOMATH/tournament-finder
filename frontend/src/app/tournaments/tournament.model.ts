@@ -7,5 +7,12 @@ export interface Tournament {
   isFull: boolean;
   startDate: Date;
   endDate: Date;
-  ageDivision: boolean[]; //This should only ever be 8 in length
+  isBoysVarsity: boolean;
+  isGirlsVarsity: boolean;
+  isBoysJv: boolean;
+  isGirlsJv: boolean;
+  isBoysMs: boolean;
+  isGirlsMs: boolean;
+  isBoysYouth: boolean;
+  isGirlsYouth: boolean;
 }
