@@ -27,8 +27,8 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	var newId int
 	statement := `
 	insert into tournaments 
-	(name, location_name, street_address, city, state, organizer_id, age_division, is_full) 
-	values ($1, $2, $3, $4, $5, $6, $7, $8)`
+	(name, location_name, street_address, city, state, organizer_id,  is_full) 
+	values ($1, $2, $3, $4, $5, $6, $7)`
 
 	err := s.DB.QueryRowContext(ctx, statement,
 		tournament.Name,
@@ -37,7 +37,6 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 		tournament.City,
 		tournament.State,
 		tournament.OrganizerId,
-		tournament.AgeDivisionArrayToInt(),
 		tournament.IsFull).Scan(&newId)
 
 	if err != nil {
@@ -55,8 +54,8 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 	statement := `update tournaments 
 	set name = $1, location_name = $2,
 	street_address = $3, city = $4, state = $5,
-	organizer_id = $6, age_division = $7, is_full = $7
-	where id = $9`
+	organizer_id = $6, is_full = $7
+	where id = $8`
 
 	err := s.DB.QueryRowContext(ctx, statement,
 		tournament.Name,
@@ -65,7 +64,6 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 		tournament.City,
 		tournament.State,
 		tournament.OrganizerId,
-		tournament.AgeDivisionArrayToInt(),
 		tournament.IsFull,
 		tournament.Id).Scan(&updatedTournament)
 
@@ -89,7 +87,7 @@ func (s *TournamentStore) GetAllTournaments(page int) ([]types.Tournament, error
 	// TODO: Add pagination
 	query := `select name, location_name,
 	street_address, city, state,
-	organizer_id, age_division, is_full,
+	organizer_id, is_full,
 	start_date
 	from tournaments
 	ORDER BY start_date
@@ -116,7 +114,6 @@ func (s *TournamentStore) GetAllTournaments(page int) ([]types.Tournament, error
 			&ageDivision,
 			&tournament.IsFull,
 		)
-		tournament.AgeDivisionIntToArray(ageDivision)
 		if err != nil {
 			return tournaments, err
 		}
@@ -139,7 +136,7 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 
 	query := `select name, location_name, 
 	street_address, city, state,
-	organizer_id, age_division, is_full 
+	organizer_id, is_full 
 	from tournaments where`
 
 	// This might want to be LIKE instead of =
@@ -173,11 +170,6 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 		query = query + fmt.Sprintf("end_date = $%d", len(activeFilters)+1)
 	}
 
-	if filter.AgeDivisionArrayToInt() != 0 {
-		activeFilters = append(activeFilters, filter.AgeDivisionArrayToInt())
-		query = query + fmt.Sprintf("age_division = $%d", len(activeFilters)+1)
-	}
-
 	// Think about adding query for location name and possibly breaking location up
 	// for filtering on things like state
 
@@ -205,7 +197,6 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 			&ageDivision,
 			&tournament.IsFull,
 		)
-		tournament.AgeDivisionIntToArray(ageDivision)
 		if err != nil {
 			return tournaments, err
 		}
@@ -222,7 +213,7 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	var tournament types.Tournament
 	query := `select name, location_name,
 	street_address, city, state,
-	organizer_id, age_division, is_full 
+	organizer_id, is_full 
 	from tournaments where id = $1`
 
 	var ageDivision int
@@ -237,7 +228,6 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 		&ageDivision,
 		&tournament.IsFull,
 	)
-	tournament.AgeDivisionIntToArray(ageDivision)
 	return tournament, err
 }
 
