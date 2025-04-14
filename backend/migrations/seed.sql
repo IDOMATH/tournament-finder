@@ -7,7 +7,14 @@ CREATE TABLE tournaments (
     state VARCHAR(13),
     organizer_id INTEGER,
     is_full BOOLEAN,
-    age_division INTEGER
+    is_boy_varsity BOOLEAN,
+    is_girls_varsity BOOLEAN,
+    is_boys_jv BOOLEAN,
+    is_girls_js BOOLEAN,
+    is_boys_ms BOOLEAN,
+    is_girls_ms BOOLEAN,
+    is_boys_youth BOOLEAN,
+    is_girls_youth BOOLEAN
 )
 
 CREATE TABLE users (

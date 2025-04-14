@@ -27,7 +27,10 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	var newId int
 	statement := `
 	insert into tournaments 
-	(name, location_name, street_address, city, state, organizer_id,  is_full) 
+	(name, location_name, street_address, city, state, organizer_id,
+	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
+    is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
+	is_full) 
 	values ($1, $2, $3, $4, $5, $6, $7)`
 
 	err := s.DB.QueryRowContext(ctx, statement,
@@ -54,6 +57,8 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 	statement := `update tournaments 
 	set name = $1, location_name = $2,
 	street_address = $3, city = $4, state = $5,
+	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
+    is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
 	organizer_id = $6, is_full = $7
 	where id = $8`
 
@@ -87,6 +92,8 @@ func (s *TournamentStore) GetAllTournaments(page int) ([]types.Tournament, error
 	// TODO: Add pagination
 	query := `select name, location_name,
 	street_address, city, state,
+	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
+    is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
 	organizer_id, is_full,
 	start_date
 	from tournaments
@@ -136,6 +143,8 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 
 	query := `select name, location_name, 
 	street_address, city, state,
+	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
+    is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
 	organizer_id, is_full 
 	from tournaments where`
 
@@ -213,6 +222,8 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	var tournament types.Tournament
 	query := `select name, location_name,
 	street_address, city, state,
+	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
+    is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
 	organizer_id, is_full 
 	from tournaments where id = $1`
 
