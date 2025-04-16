@@ -65,10 +65,10 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 	statement := `update tournaments 
 	set name = $1, location_name = $2,
 	street_address = $3, city = $4, state = $5,
-	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
-    is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
-	organizer_id = $6, is_full = $7
-	where id = $8`
+	is_boy_varsity = $6, is_girls_varsity = $7, is_boys_jv = $8, is_girls_js = $9,
+    is_boys_ms = $10, is_girls_ms = $11, is_boys_youth = $12, is_girls_youth = $13,
+	organizer_id = $14, is_full = $15
+	where id = $16`
 
 	err := s.DB.QueryRowContext(ctx, statement,
 		tournament.Name,
