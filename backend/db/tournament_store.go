@@ -203,8 +203,30 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 		query = query + fmt.Sprintf("end_date = $%d", len(activeFilters)+1)
 	}
 
-	// Think about adding query for location name and possibly breaking location up
-	// for filtering on things like state
+	if filter.IsBoysVarsity {
+		query = query + "is_boys_varsity = true"
+	}
+	if filter.IsGirlsVarsity {
+		query = query + "is_girls_varsity = true"
+	}
+	if filter.IsBoysJv {
+		query = query + "is_boys_jv = true"
+	}
+	if filter.IsGirlsJv {
+		query = query + "is_girls_jv = true"
+	}
+	if filter.IsBoysMs {
+		query = query + "is_boys_ms = true"
+	}
+	if filter.IsGirlsMs {
+		query = query + "is_girls_ms = true"
+	}
+	if filter.IsBoysYouth {
+		query = query + "is_boys_youth = true"
+	}
+	if filter.IsGirlsYouth {
+		query = query + "is_girls_youth = true"
+	}
 
 	if len(activeFilters) == 0 {
 		return tournaments, errors.New("no filters given")
