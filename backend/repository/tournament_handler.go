@@ -26,6 +26,12 @@ func parseTournamentForm(r *http.Request) types.Tournament {
 	// tournament.EndDate = util.ParseDate(r.PostFormValue("endDate"))
 	tournament.IsBoysVarsity = r.PostFormValue("isBoysVarsity") == "true"
 	tournament.IsGirlsVarsity = r.PostFormValue("isGirlsVarsity") == "true"
+	tournament.IsBoysJv = r.PostFormValue("isBoysJv") == "true"
+	tournament.IsGirlsJv = r.PostFormValue("isGirlsJv") == "true"
+	tournament.IsBoysMs = r.PostFormValue("isBoysMs") == "true"
+	tournament.IsGirlsMs = r.PostFormValue("isGirlsMs") == "true"
+	tournament.IsBoysYouth = r.PostFormValue("isBoysYouth") == "true"
+	tournament.IsGirlsYouth = r.PostFormValue("isGirlsYouth") == "true"
 
 	return tournament
 }
