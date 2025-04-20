@@ -2,7 +2,8 @@ export interface Tournament {
   id: number;
   name: string;
   locationName: string;
-  locationAddress: string;
+  streetAddress: string;
+  state: string;
   organizerId: number;
   isFull: boolean;
   startDate: Date;

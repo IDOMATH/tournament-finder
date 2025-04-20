@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { Tournament } from "../tournament.model";
 
 @Component({
   selector: "app-new-tournament-form",
@@ -25,6 +26,10 @@ export class NewTournamentFormComponent {
   enteredIsGirlsYouth = false;
 
   onSubmit() {
+    let tournament: Tournament = {
+      name: this.enteredTournamentName,
+      locationName: this.enteredLocationName,
+    };
     console.log("submitting");
     console.log(this.enteredIsBoysVarsity);
   }
