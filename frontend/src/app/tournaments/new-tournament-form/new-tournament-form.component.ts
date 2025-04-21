@@ -29,6 +29,19 @@ export class NewTournamentFormComponent {
     let tournament: Tournament = {
       name: this.enteredTournamentName,
       locationName: this.enteredLocationName,
+      streetAddress: this.enteredStreetAddress,
+      city: this.enteredCity,
+      state: this.enteredState,
+      startDate: new Date(this.enteredStartDate),
+      endDate: new Date(this.enteredEndDate),
+      isBoysVarsity: this.enteredIsBoysVarsity,
+      isGirlsVarsity: this.enteredIsGirlsVarsity,
+      isBoysJv: this.enteredIsBoysJv,
+      isGirlsJv: this.enteredIsGirlsJv,
+      isBoysMs: this.enteredIsBoysMs,
+      isGirlsMs: this.enteredIsGirlsMs,
+      isBoysYouth: this.enteredIsBoysYouth,
+      isGirlsYouth: this.enteredIsGirlsYouth,
     };
     console.log("submitting");
     console.log(this.enteredIsBoysVarsity);

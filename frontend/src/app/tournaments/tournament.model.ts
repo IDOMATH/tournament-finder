@@ -3,6 +3,7 @@ export interface Tournament {
   name: string;
   locationName: string;
   streetAddress: string;
+  city: string;
   state: string;
   organizerId: number;
   isFull: boolean;
