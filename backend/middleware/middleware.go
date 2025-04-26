@@ -30,9 +30,15 @@ func Authenticate(repo *repository.Repository) Middleware {
 	return func(next http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
 			// Make and hook up session storage to repository
-			// repo.Session.GetToken(r.Header.Get("cheetauth"))
+			t, found, _ := repo.Session.Get(r.Header.Get("cheetauth"))
+			if !found {
+				fmt.Println("NOT AUTHENTICATED")
+				// Potentially do some rerouting if the endpoint is protected
+			}
+			if found {
+				fmt.Println(t)
+			}
 
-			fmt.Println("NOT AUTHENTICATED")
 			next(w, r)
 		}
 	}
