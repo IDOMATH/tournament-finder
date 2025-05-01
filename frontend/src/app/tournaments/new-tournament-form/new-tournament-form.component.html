@@ -5,7 +5,7 @@
       type="text"
       id="tournament-name"
       name="tournament-name"
-      [(ngModel)]="enteredTournamentName"
+      formControlName="tournamentName"
     />
   </p>
   <p>
@@ -14,7 +14,7 @@
       type="text"
       id="location-name"
       name="location-name"
-      [(ngModel)]="enteredLocationName"
+      formControlName="locationName"
     />
   </p>
   <p>
@@ -23,25 +23,25 @@
       type="text"
       id="street-address"
       name="street-address"
-      [(ngModel)]="enteredStreetAddress"
+      formControlName="streetAddress"
     />
   </p>
   <p>
     <label for="city">City</label>
-    <input type="text" id="city" name="city" [(ngModel)]="enteredCity" />
+    <input type="text" id="city" name="city" formControlName="city" />
   </p>
   <p>
     <label for="state">State</label>
-    <input type="text" id="state" name="state" [(ngModel)]="enteredState" />
+    <input type="text" id="state" name="state" formControlName="state" />
   </p>
-  <div class="input-group">
+  <div class="input-group" formControlName="dates">
     <p>
       <label for="start-date">Start Date</label>
       <input
         type="date"
         id="start-date"
         name="start-date"
-        [(ngModel)]="enteredStartDate"
+        formControlName="startDate"
       />
     </p>
 
@@ -51,17 +51,17 @@
         type="date"
         id="end-date"
         name="end-date"
-        [(ngModel)]="enteredEndDate"
+        formControlName="endDate"
       />
     </p>
   </div>
-  <div class="input-group">
+  <div class="input-group" formGroupName="ageDivision">
     <input
       type="checkbox"
       id="isBoysVarsity"
       name="isBoysVarsity"
       value="isBoysVarsity"
-      [(ngModel)]="enteredIsBoysVarsity"
+      formControlName="isBoysVarsity"
     />
     <label for="isBoysVarsity">Boys Varsity</label>
     <input
@@ -69,7 +69,7 @@
       id="isGirlsVarsity"
       name="isGirlsVarsity"
       value="isGirlsVarsity"
-      [(ngModel)]="enteredIsGirlsVarsity"
+      formControlName="isGirlsVarsity"
     />
     <label for="isGirlsVarsity">Girls Varsity</label>
   </div>
@@ -79,7 +79,7 @@
       id="isBoysJv"
       name="isBoysJv"
       value="isBoysJv"
-      [(ngModel)]="enteredIsBoysJv"
+      formControlName="isBoysJv"
     />
     <label for="isBoysJv">Boys JV</label>
 
@@ -88,7 +88,7 @@
       id="isGirlsJv"
       name="isGirlsJv"
       value="isGirlsJv"
-      [(ngModel)]="enteredIsGirlsJv"
+      formControlName="isGirlsJv"
     />
     <label for="isGirlsJv">Girls JV</label>
   </div>
@@ -98,7 +98,7 @@
       id="isBoysMs"
       name="isBoysMs"
       value="isBoysMs"
-      [(ngModel)]="enteredIsBoysMs"
+      formControlName="isBoysMs"
     />
     <label for="isBoysMs">Boys Middle School</label>
     <input
@@ -106,7 +106,7 @@
       id="isGirlsMs"
       name="isGirlsMs"
       value="isGirlsMs"
-      [(ngModel)]="enteredIsGirlsMs"
+      formControlName="isGirlsMs"
     />
     <label for="isGirlsMs">Girls Middle School</label>
   </div>
@@ -116,7 +116,7 @@
       id="isBoysYouth"
       name="isBoysYouth"
       value="isBoysYouth"
-      [(ngModel)]="enteredIsBoysYouth"
+      formControlName="isBoysYouth"
     />
     <label for="isBoysYouth">Boys Youth</label>
     <input
@@ -124,7 +124,7 @@
       id="isGirlsYouth"
       name="isGirlsYouth"
       value="isGirlsYouth"
-      [(ngModel)]="enteredIsGirlsYouth"
+      formControlName="isGirlsYouth"
     />
     <label for="isGirlsYouth">Girls Youth</label>
   </div>
