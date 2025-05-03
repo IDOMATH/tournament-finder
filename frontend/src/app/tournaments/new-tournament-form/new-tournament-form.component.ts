@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import {
+  FormArray,
   FormControl,
   FormGroup,
   FormsModule,
@@ -17,29 +18,27 @@ export class NewTournamentFormComponent {
   form = new FormGroup({
     name: new FormControl("", {}),
     locationName: new FormControl("", {}),
+    streetAddress: new FormControl("", {}),
+    city: new FormControl("", {}),
+    state: new FormControl("", {}),
     dates: new FormGroup({
       startDate: new FormControl("", {}),
       endDate: new FormControl("", {}),
     }),
+    ageDivision: new FormGroup({
+      isBoysVarsity: new FormControl(false, {}),
+      isGirlsVarsity: new FormControl(false, {}),
+      isBoysJv: new FormControl(false, {}),
+      isGirlsJv: new FormControl(false, {}),
+      isBoysMs: new FormControl(false, {}),
+      isGirlsMs: new FormControl(false, {}),
+      isBoysYouth: new FormControl(false, {}),
+      isGirlsYouth: new FormControl(false, {}),
+    }),
   });
-  enteredTournamentName = "";
-  enteredLocationName = "";
-  enteredStreetAddress = "";
-  enteredCity = "";
-  enteredState = "";
-  enteredStartDate = "";
-  enteredEndDate = "";
-  enteredIsBoysVarsity = false;
-  enteredIsGirlsVarsity = false;
-  enteredIsBoysJv = false;
-  enteredIsGirlsJv = false;
-  enteredIsBoysMs = false;
-  enteredIsGirlsMs = false;
-  enteredIsBoysYouth = false;
-  enteredIsGirlsYouth = false;
 
   onSubmit() {
     console.log("submitting");
-    console.log(this.enteredIsBoysVarsity);
+    console.log(this.form.controls.name);
   }
 }
