@@ -17,6 +17,10 @@ export class NewTournamentFormComponent {
   form = new FormGroup({
     name: new FormControl("", {}),
     locationName: new FormControl("", {}),
+    dates: new FormGroup({
+      startDate: new FormControl("", {}),
+      endDate: new FormControl("", {}),
+    }),
   });
   enteredTournamentName = "";
   enteredLocationName = "";
