@@ -1,5 +1,6 @@
 import { Component, inject } from "@angular/core";
 import {
+  AbstractControl,
   FormArray,
   FormControl,
   FormGroup,
@@ -9,6 +10,22 @@ import {
 } from "@angular/forms";
 import { Tournament } from "../tournament.model";
 import { TournamentService } from "../tournament-service";
+
+function endDateNotBeforeStartDate(startControl: string, endControl: string) {
+  return (control: AbstractControl) => {
+    const startDateString = control.get(startControl)?.value;
+    const endDateString = control.get(endControl)?.value;
+
+    const startDate = new Date(startDateString);
+    const endDate = new Date(endDateString);
+
+    if (endDate < startDate) {
+      return { endDateBeforeStartDate: true };
+    }
+
+    return null;
+  };
+}
 
 @Component({
   selector: "app-new-tournament-form",
@@ -25,10 +42,13 @@ export class NewTournamentFormComponent {
     streetAddress: new FormControl("", { validators: [Validators.required] }),
     city: new FormControl("", { validators: [Validators.required] }),
     state: new FormControl("", { validators: [Validators.required] }),
-    dates: new FormGroup({
-      startDate: new FormControl("", { validators: [Validators.required] }),
-      endDate: new FormControl("", { validators: [Validators.required] }),
-    }),
+    dates: new FormGroup(
+      {
+        startDate: new FormControl("", { validators: [Validators.required] }),
+        endDate: new FormControl("", { validators: [Validators.required] }),
+      },
+      { validators: [endDateNotBeforeStartDate("startDate", "endDate")] }
+    ),
     ageDivision: new FormGroup({
       isBoysVarsity: new FormControl(false, {
         validators: [Validators.required],
