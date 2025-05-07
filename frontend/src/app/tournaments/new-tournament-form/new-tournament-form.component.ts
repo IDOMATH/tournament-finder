@@ -70,6 +70,9 @@ export class NewTournamentFormComponent {
   });
 
   onSubmit() {
+    if (this.form.invalid) {
+      return;
+    }
     const tournament = {
       name: this.form.controls.name.value!,
       locationName: this.form.controls.locationName.value!,
