@@ -8,8 +8,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { Tournament } from "../tournament.model";
-import { TournamentService } from "../tournament-service";
+import { Tournament } from "../../models/tournament.model";
+import { TournamentService } from "../../services/tournament-service";
 
 function endDateNotBeforeStartDate(startControl: string, endControl: string) {
   return (control: AbstractControl) => {

@@ -1,6 +1,6 @@
 import { Component, inject, signal } from "@angular/core";
-import { TournamentService } from "../tournament-service";
-import { Tournament } from "../tournament.model";
+import { TournamentService } from "../../services/tournament-service";
+import { Tournament } from "../../models/tournament.model";
 
 @Component({
   selector: "app-tournament",
