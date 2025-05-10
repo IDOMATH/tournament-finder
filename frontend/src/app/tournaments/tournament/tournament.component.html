@@ -1,2 +1,12 @@
 <p>tournament works!</p>
-<h1>{{ tournament()?.name }}</h1>
+<h1>{{ tournament()!.name }}</h1>
+<p>{{ tournament()!.locationName }}</p>
+<p>{{ tournament()!.streetAddress }}</p>
+<p>{{ tournament()!.city }}</p>
+<p>{{ tournament()!.state }}</p>
+@if(tournament()!.startDate.getTime() === tournament()!.endDate.getTime()){
+<p>On {{ tournament()!.startDate }}</p>
+} @else {
+<p>From {{ tournament()!.startDate }} to {{ tournament()!.endDate }}</p>
+
+}
