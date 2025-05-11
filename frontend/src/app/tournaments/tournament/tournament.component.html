@@ -5,8 +5,11 @@
 <p>{{ tournament()!.city }}</p>
 <p>{{ tournament()!.state }}</p>
 @if(tournament()!.startDate.getTime() === tournament()!.endDate.getTime()){
-<p>On {{ tournament()!.startDate }}</p>
+<p>On {{ tournament()!.startDate | date : "longDate" }}</p>
 } @else {
 <p>From {{ tournament()!.startDate }} to {{ tournament()!.endDate }}</p>
-
+} @if(tournament()?.isFull) {
+<p>This tournament is full.</p>
+} @else {
+<p>Still accepting participants.</p>
 }
