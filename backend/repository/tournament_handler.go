@@ -24,14 +24,14 @@ func parseTournamentForm(r *http.Request) types.Tournament {
 	//TODO: Make some sort of date parser function.  Probably in the utils package
 	// tournament.StartDate = util.ParseDate(r.PostFormValue("startDate"))
 	// tournament.EndDate = util.ParseDate(r.PostFormValue("endDate"))
-	tournament.IsBoysVarsity = r.PostFormValue("isBoysVarsity") == "true"
-	tournament.IsGirlsVarsity = r.PostFormValue("isGirlsVarsity") == "true"
-	tournament.IsBoysJv = r.PostFormValue("isBoysJv") == "true"
-	tournament.IsGirlsJv = r.PostFormValue("isGirlsJv") == "true"
-	tournament.IsBoysMs = r.PostFormValue("isBoysMs") == "true"
-	tournament.IsGirlsMs = r.PostFormValue("isGirlsMs") == "true"
-	tournament.IsBoysYouth = r.PostFormValue("isBoysYouth") == "true"
-	tournament.IsGirlsYouth = r.PostFormValue("isGirlsYouth") == "true"
+	tournament.BoysVarsity = r.PostFormValue("boysVarsity")
+	tournament.GirlsVarsity = r.PostFormValue("girlsVarsity")
+	tournament.BoysJv = r.PostFormValue("boysJv")
+	tournament.GirlsJv = r.PostFormValue("girlsJv")
+	tournament.BoysMs = r.PostFormValue("boysMs")
+	tournament.GirlsMs = r.PostFormValue("girlsMs")
+	tournament.BoysYouth = r.PostFormValue("boysYouth")
+	tournament.GirlsYouth = r.PostFormValue("girlsYouth")
 
 	return tournament
 }
@@ -39,7 +39,6 @@ func parseTournamentForm(r *http.Request) types.Tournament {
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
 	tournament := parseTournamentForm(r)
 
-	tournament.IsFull = false
 	//TODO: get the organizerId from the logged in user.
 	// tournament.OrganizerId = repo.Session.
 

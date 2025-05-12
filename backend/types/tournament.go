@@ -5,22 +5,21 @@ import (
 )
 
 type Tournament struct {
-	Id             int
-	Name           string
-	LocationName   string
-	StreetAddress  string
-	City           string
-	State          string
-	OrganizerId    int
-	IsFull         bool
-	StartDate      time.Time
-	EndDate        time.Time
-	IsBoysVarsity  bool
-	IsGirlsVarsity bool
-	IsBoysJv       bool
-	IsGirlsJv      bool
-	IsBoysMs       bool
-	IsGirlsMs      bool
-	IsBoysYouth    bool
-	IsGirlsYouth   bool
+	Id            int       `json:"id"`
+	Name          string    `json:"name"`
+	LocationName  string    `json:"locationName"`
+	StreetAddress string    `json:"streedAddress"`
+	City          string    `json:"city"`
+	State         string    `json:"state"`
+	OrganizerId   int       `json:"organizerId"`
+	StartDate     time.Time `json:"startDate"`
+	EndDate       time.Time `json:"endDate"`
+	BoysVarsity   int       `json:"boysVarsity"`
+	GirlsVarsity  int       `json:"girlsVarsity"`
+	BoysJv        int       `json:"boysJv"`
+	GirlsJv       int       `json:"girlsJv"`
+	BoysMs        int       `json:"boysMs"`
+	GirlsMs       int       `json:"girlsMs"`
+	BoysYouth     int       `json:"boysYouth"`
+	GirlsYouth    int       `json:"girlsYouth"`
 }
