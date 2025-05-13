@@ -39,16 +39,15 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 		tournament.StreetAddress,
 		tournament.City,
 		tournament.State,
-		&tournament.IsBoysVarsity,
-		&tournament.IsGirlsVarsity,
-		&tournament.IsBoysJv,
-		&tournament.IsGirlsJv,
-		&tournament.IsBoysMs,
-		&tournament.IsGirlsMs,
-		&tournament.IsBoysYouth,
-		&tournament.IsGirlsYouth,
-		tournament.OrganizerId,
-		tournament.IsFull).Scan(&newId)
+		&tournament.BoysVarsity,
+		&tournament.GirlsVarsity,
+		&tournament.BoysJv,
+		&tournament.GirlsJv,
+		&tournament.BoysMs,
+		&tournament.GirlsMs,
+		&tournament.BoysYouth,
+		&tournament.GirlsYouth,
+		tournament.OrganizerId).Scan(&newId)
 
 	if err != nil {
 		return 0, err
@@ -76,16 +75,15 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 		tournament.StreetAddress,
 		tournament.City,
 		tournament.State,
-		&tournament.IsBoysVarsity,
-		&tournament.IsGirlsVarsity,
-		&tournament.IsBoysJv,
-		&tournament.IsGirlsJv,
-		&tournament.IsBoysMs,
-		&tournament.IsGirlsMs,
-		&tournament.IsBoysYouth,
-		&tournament.IsGirlsYouth,
+		&tournament.BoysVarsity,
+		&tournament.GirlsVarsity,
+		&tournament.BoysJv,
+		&tournament.GirlsJv,
+		&tournament.BoysMs,
+		&tournament.GirlsMs,
+		&tournament.BoysYouth,
+		&tournament.GirlsYouth,
 		tournament.OrganizerId,
-		tournament.IsFull,
 		tournament.Id).Scan(&updatedTournament)
 
 	fmt.Println(updatedTournament)
@@ -133,18 +131,16 @@ func (s *TournamentStore) GetAllTournaments(page int) ([]types.Tournament, error
 			&tournament.StreetAddress,
 			&tournament.City,
 			&tournament.State,
-			&tournament.IsBoysVarsity,
-			&tournament.IsGirlsVarsity,
-			&tournament.IsBoysJv,
-			&tournament.IsGirlsJv,
-			&tournament.IsBoysMs,
-			&tournament.IsGirlsMs,
-			&tournament.IsBoysYouth,
-			&tournament.IsGirlsYouth,
+			&tournament.BoysVarsity,
+			&tournament.GirlsVarsity,
+			&tournament.BoysJv,
+			&tournament.GirlsJv,
+			&tournament.BoysMs,
+			&tournament.GirlsMs,
+			&tournament.BoysYouth,
+			&tournament.GirlsYouth,
 			&tournament.OrganizerId,
-			&ageDivision,
-			&tournament.IsFull,
-		)
+			&ageDivision)
 		if err != nil {
 			return tournaments, err
 		}
@@ -203,28 +199,28 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 		query = query + fmt.Sprintf("end_date = $%d", len(activeFilters)+1)
 	}
 
-	if filter.IsBoysVarsity {
+	if filter.BoysVarsity > 0 {
 		query = query + "is_boys_varsity = true"
 	}
-	if filter.IsGirlsVarsity {
+	if filter.GirlsVarsity > 0 {
 		query = query + "is_girls_varsity = true"
 	}
-	if filter.IsBoysJv {
+	if filter.BoysJv > 0 {
 		query = query + "is_boys_jv = true"
 	}
-	if filter.IsGirlsJv {
+	if filter.GirlsJv > 0 {
 		query = query + "is_girls_jv = true"
 	}
-	if filter.IsBoysMs {
+	if filter.BoysMs > 0 {
 		query = query + "is_boys_ms = true"
 	}
-	if filter.IsGirlsMs {
+	if filter.GirlsMs > 0 {
 		query = query + "is_girls_ms = true"
 	}
-	if filter.IsBoysYouth {
+	if filter.BoysYouth > 0 {
 		query = query + "is_boys_youth = true"
 	}
-	if filter.IsGirlsYouth {
+	if filter.GirlsYouth > 0 {
 		query = query + "is_girls_youth = true"
 	}
 
@@ -248,17 +244,16 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 			&tournament.StreetAddress,
 			&tournament.City,
 			&tournament.State,
-			&tournament.IsBoysVarsity,
-			&tournament.IsGirlsVarsity,
-			&tournament.IsBoysJv,
-			&tournament.IsGirlsJv,
-			&tournament.IsBoysMs,
-			&tournament.IsGirlsMs,
-			&tournament.IsBoysYouth,
-			&tournament.IsGirlsYouth,
+			&tournament.BoysVarsity,
+			&tournament.GirlsVarsity,
+			&tournament.BoysJv,
+			&tournament.GirlsJv,
+			&tournament.BoysMs,
+			&tournament.GirlsMs,
+			&tournament.BoysYouth,
+			&tournament.GirlsYouth,
 			&tournament.OrganizerId,
 			&ageDivision,
-			&tournament.IsFull,
 		)
 		if err != nil {
 			return tournaments, err
@@ -289,17 +284,16 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 		&tournament.StreetAddress,
 		&tournament.City,
 		&tournament.State,
-		&tournament.IsBoysVarsity,
-		&tournament.IsGirlsVarsity,
-		&tournament.IsBoysJv,
-		&tournament.IsGirlsJv,
-		&tournament.IsBoysMs,
-		&tournament.IsGirlsMs,
-		&tournament.IsBoysYouth,
-		&tournament.IsGirlsYouth,
+		&tournament.BoysVarsity,
+		&tournament.GirlsVarsity,
+		&tournament.BoysJv,
+		&tournament.GirlsJv,
+		&tournament.BoysMs,
+		&tournament.GirlsMs,
+		&tournament.BoysYouth,
+		&tournament.GirlsYouth,
 		&tournament.OrganizerId,
 		&ageDivision,
-		&tournament.IsFull,
 	)
 	return tournament, err
 }
