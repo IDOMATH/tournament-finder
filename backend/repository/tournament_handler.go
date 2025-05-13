@@ -13,31 +13,9 @@ type TournamentHandler struct {
 	TournamentStore db.TournamentStore
 }
 
-func parseTournamentForm(r *http.Request) types.Tournament {
-	var tournament types.Tournament
-
-	tournament.Name = r.PostFormValue("name")
-	tournament.LocationName = r.PostFormValue("locationName")
-	tournament.StreetAddress = r.PostFormValue("streetAddress")
-	tournament.City = r.PostFormValue("city")
-	tournament.State = r.PostFormValue("state")
-	//TODO: Make some sort of date parser function.  Probably in the utils package
-	// tournament.StartDate = util.ParseDate(r.PostFormValue("startDate"))
-	// tournament.EndDate = util.ParseDate(r.PostFormValue("endDate"))
-	tournament.BoysVarsity = r.PostFormValue("boysVarsity")
-	tournament.GirlsVarsity = r.PostFormValue("girlsVarsity")
-	tournament.BoysJv = r.PostFormValue("boysJv")
-	tournament.GirlsJv = r.PostFormValue("girlsJv")
-	tournament.BoysMs = r.PostFormValue("boysMs")
-	tournament.GirlsMs = r.PostFormValue("girlsMs")
-	tournament.BoysYouth = r.PostFormValue("boysYouth")
-	tournament.GirlsYouth = r.PostFormValue("girlsYouth")
-
-	return tournament
-}
-
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
-	tournament := parseTournamentForm(r)
+	var tournament types.Tournament
+	json.NewDecoder(r.Body).Decode(&tournament)
 
 	//TODO: get the organizerId from the logged in user.
 	// tournament.OrganizerId = repo.Session.
