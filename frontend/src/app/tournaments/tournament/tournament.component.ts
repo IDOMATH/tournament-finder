@@ -2,10 +2,11 @@ import { Component, inject, signal } from "@angular/core";
 import { TournamentService } from "../../services/tournament-service";
 import { Tournament } from "../../models/tournament.model";
 import { DatePipe } from "@angular/common";
+import { AgeDivisionComponent } from "../../age-division/age-division.component";
 
 @Component({
   selector: "app-tournament",
-  imports: [DatePipe],
+  imports: [DatePipe, AgeDivisionComponent],
   templateUrl: "./tournament.component.html",
   styleUrl: "./tournament.component.css",
 })

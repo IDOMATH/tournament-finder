@@ -81,19 +81,25 @@ export class NewTournamentFormComponent {
       state: this.form.controls.state.value!,
       startDate: new Date(this.form.controls.dates.controls.startDate.value!),
       endDate: new Date(this.form.controls.dates.controls.endDate.value!),
-      isBoysVarsity:
-        this.form.controls.ageDivision.controls.isBoysVarsity.value!,
-      isGirlsVarsity:
-        this.form.controls.ageDivision.controls.isGirlsVarsity.value!,
-      isBoysJv: this.form.controls.ageDivision.controls.isBoysJv.value!,
-      isGirlsJv: this.form.controls.ageDivision.controls.isGirlsJv.value!,
-      isBoysMs: this.form.controls.ageDivision.controls.isBoysMs.value!,
-      isGirlsMs: this.form.controls.ageDivision.controls.isGirlsMs.value!,
-      isBoysYouth: this.form.controls.ageDivision.controls.isBoysYouth.value!,
-      isGirlsYouth: this.form.controls.ageDivision.controls.isGirlsYouth.value!,
+      boysVarsity: this.form.controls.ageDivision.controls.isBoysVarsity.value!
+        ? 1
+        : 0,
+      girlsVarsity: this.form.controls.ageDivision.controls.isGirlsVarsity
+        .value!
+        ? 1
+        : 0,
+      boysJv: this.form.controls.ageDivision.controls.isBoysJv.value! ? 1 : 0,
+      girlsJv: this.form.controls.ageDivision.controls.isGirlsJv.value! ? 1 : 0,
+      boysMs: this.form.controls.ageDivision.controls.isBoysMs.value! ? 1 : 0,
+      girlsMs: this.form.controls.ageDivision.controls.isGirlsMs.value! ? 1 : 0,
+      boysYouth: this.form.controls.ageDivision.controls.isBoysYouth.value!
+        ? 1
+        : 0,
+      girlsYouth: this.form.controls.ageDivision.controls.isGirlsYouth.value!
+        ? 1
+        : 0,
       id: 0,
       organizerId: 0,
-      isFull: false,
     };
 
     console.log("submitting");

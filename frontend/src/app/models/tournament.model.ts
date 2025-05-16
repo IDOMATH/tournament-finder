@@ -6,15 +6,14 @@ export interface Tournament {
   city: string;
   state: string;
   organizerId: number;
-  isFull: boolean;
   startDate: Date;
   endDate: Date;
-  isBoysVarsity: boolean;
-  isGirlsVarsity: boolean;
-  isBoysJv: boolean;
-  isGirlsJv: boolean;
-  isBoysMs: boolean;
-  isGirlsMs: boolean;
-  isBoysYouth: boolean;
-  isGirlsYouth: boolean;
+  boysVarsity: number;
+  girlsVarsity: number;
+  boysJv: number;
+  girlsJv: number;
+  boysMs: number;
+  girlsMs: number;
+  boysYouth: number;
+  girlsYouth: number;
 }
