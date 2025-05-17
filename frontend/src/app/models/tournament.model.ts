@@ -17,3 +17,14 @@ export interface Tournament {
   boysYouth: number;
   girlsYouth: number;
 }
+
+export const AgeDivisions = [
+  "boysVarsity",
+  "girlsVarsity",
+  "boysJv",
+  "girlsJv",
+  "boysMs",
+  "girlsMs",
+  "boysYouth",
+  "girlsYouth",
+];

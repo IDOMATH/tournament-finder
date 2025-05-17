@@ -10,4 +10,36 @@
 <p>From {{ tournament()!.startDate }} to {{ tournament()!.endDate }}</p>
 }
 
-<app-age-divion [ageDivision]="'Girls Varsity'" [availability]="1" />
+<app-age-divion
+  [ageDivision]="'Boys Varsity'"
+  [availability]="tournament()!.boysVarsity"
+/>
+<app-age-divion
+  [ageDivision]="'Girls Varsity'"
+  [availability]="tournament()!.girlsVarsity"
+/>
+
+<app-age-divion
+  [ageDivision]="'Boys JV'"
+  [availability]="tournament()!.boysJv"
+/>
+<app-age-divion
+  [ageDivision]="'Girls JV'"
+  [availability]="tournament()!.girlsJv"
+/>
+<app-age-divion
+  [ageDivision]="'Boys Middle School'"
+  [availability]="tournament()!.boysMs"
+/>
+<app-age-divion
+  [ageDivision]="'Girls Middle School'"
+  [availability]="tournament()!.girlsMs"
+/>
+<app-age-divion
+  [ageDivision]="'Boys Youth'"
+  [availability]="tournament()!.boysYouth"
+/>
+<app-age-divion
+  [ageDivision]="'Girls Youth'"
+  [availability]="tournament()!.girlsYouth"
+/>
