@@ -1,0 +1,5 @@
+@if(startDate()!.getTime() === endDate!().getTime()){
+<p>On {{ startDate!() | date : "longDate" }}</p>
+} @else {
+<p>From {{ startDate!() }} to {{ endDate!() }}</p>
+}

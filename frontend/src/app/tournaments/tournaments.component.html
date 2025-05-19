@@ -1,1 +1,9 @@
 <p>tournaments works!</p>
+@for(tournament of tournaments; track tournament.id) {
+<app-tournament-card
+  [name]="tournament.name"
+  [startDate]="tournament.startDate"
+  [endDate]="tournament.endDate"
+  [id]="tournament.id"
+/>
+}
