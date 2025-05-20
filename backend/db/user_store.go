@@ -3,9 +3,11 @@ package db
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"time"
 
 	"github.com/IDOMATH/tournament-finder/types"
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserStore struct {
@@ -69,4 +71,24 @@ func (s *UserStore) DeleteUser(id int) error {
 
 	_, err := s.Db.ExecContext(ctx, query, id)
 	return err
+}
+
+func (s *UserStore) Login(email, password string) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var u types.User
+
+	query := `select email, password_hash from users where email = $1`
+	err := s.Db.QueryRowContext(ctx, query, email).Scan(&u.Email, &u.PasswordHash)
+	if err != nil {
+		return errors.New("error getting user from database")
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(u.PasswordHash), []byte(password))
+
+	if err != nil {
+		return errors.New("incorrect password")
+	}
+	return nil
 }

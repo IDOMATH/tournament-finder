@@ -54,6 +54,7 @@ func main() {
 	router.HandleFunc("DELETE /tournaments/{id}", repo.HandleDeleteTournament)
 	router.HandleFunc("GET /user/{id}", repo.HandleGetUserById)
 	router.HandleFunc("POST /user", repo.HandlePostNewUser)
+	router.HandleFunc("POST /login", repo.HandleLogin)
 
 	fmt.Println("Starting on port 8080")
 	log.Fatal(server.ListenAndServe())

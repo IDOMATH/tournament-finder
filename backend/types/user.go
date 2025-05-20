@@ -6,3 +6,8 @@ type User struct {
 	Id           int
 	PasswordHash string
 }
+
+type LoginFormUser struct {
+	Email    string
+	Password string
+}
