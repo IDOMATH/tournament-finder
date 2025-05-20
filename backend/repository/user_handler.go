@@ -6,13 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/IDOMATH/tournament-finder/db"
 	"github.com/IDOMATH/tournament-finder/types"
 )
-
-type UserHandler struct {
-	UserStore db.UserStore
-}
 
 func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
@@ -22,7 +17,7 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	user, err := repo.UH.UserStore.GetUserById(id)
+	user, err := repo.US.GetUserById(id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error getting user"))
@@ -45,7 +40,7 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 	user.Email = r.FormValue("email")
 	user.Name = r.FormValue("name")
 
-	newId, err := repo.UH.UserStore.InsertUser(user)
+	newId, err := repo.US.InsertUser(user)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error inserting user"))

@@ -5,13 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/IDOMATH/tournament-finder/db"
 	"github.com/IDOMATH/tournament-finder/types"
 )
-
-type TournamentHandler struct {
-	TournamentStore db.TournamentStore
-}
 
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
 	var tournament types.Tournament
@@ -20,7 +15,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	//TODO: get the organizerId from the logged in user.
 	// tournament.OrganizerId = repo.Session.
 
-	id, err := repo.TH.TournamentStore.InsertTournament(tournament)
+	id, err := repo.TS.InsertTournament(tournament)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -39,7 +34,7 @@ func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Reque
 	var tournament types.Tournament
 	tournament.Name = r.FormValue("name")
 
-	updatedTournament, err := repo.TH.TournamentStore.UpdateTournament(tournament)
+	updatedTournament, err := repo.TS.UpdateTournament(tournament)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -60,7 +55,7 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	tournaments, err := repo.TH.TournamentStore.GetAllTournaments(pageNumber)
+	tournaments, err := repo.TS.GetAllTournaments(pageNumber)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -82,7 +77,7 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 		w.Write([]byte("invalid id"))
 		return
 	}
-	tournament, err := repo.TH.TournamentStore.GetTournamentById(id)
+	tournament, err := repo.TS.GetTournamentById(id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -104,7 +99,7 @@ func (repo *Repository) HandleDeleteTournament(w http.ResponseWriter, r *http.Re
 		w.Write([]byte("error converting ID from string to int: " + err.Error()))
 		return
 	}
-	err = repo.TH.TournamentStore.DeleteTournament(id)
+	err = repo.TS.DeleteTournament(id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error deleting tournament: " + err.Error()))

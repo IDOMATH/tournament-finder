@@ -36,11 +36,9 @@ func main() {
 
 	repo := repository.Repository{}
 
-	TournamentStore := *db.NewTournamentStore(postgresDb.SQL)
-	repo.TH = repository.TournamentHandler{TournamentStore: TournamentStore}
+	repo.TS = *db.NewTournamentStore(postgresDb.SQL)
 
-	UserStore := *db.NewUserStore(postgresDb.SQL)
-	repo.UH = repository.UserHandler{UserStore: UserStore}
+	repo.US = *db.NewUserStore(postgresDb.SQL)
 
 	memstore := memorystore.New()
 	repo.Session = memstore
