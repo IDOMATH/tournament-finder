@@ -60,7 +60,6 @@ func (s *UserStore) UpdateUser(u types.User, id int) (types.User, error) {
 	err := s.Db.QueryRowContext(ctx, query, u.Name, u.Email, time.Now(), u.Id).Scan(&updatedUser.Name, &updatedUser.Email, &updatedUser.Id)
 
 	return updatedUser, err
-
 }
 
 func (s *UserStore) DeleteUser(id int) error {

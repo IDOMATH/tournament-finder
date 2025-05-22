@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/IDOMATH/tournament-finder/types"
 )
 
 func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(r.PathValue("id"))
+	var id int
+	err := json.NewDecoder(r.Body).Decode(&id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error converting id"))
@@ -36,9 +36,12 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 
 func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request) {
 	var user types.User
-
-	user.Email = r.FormValue("email")
-	user.Name = r.FormValue("name")
+	err := json.NewDecoder(r.Body).Decode(&user)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("getting user from body"))
+		return
+	}
 
 	newId, err := repo.US.InsertUser(user)
 	if err != nil {
