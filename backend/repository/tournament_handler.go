@@ -13,7 +13,21 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	json.NewDecoder(r.Body).Decode(&tournament)
 
 	//TODO: get the organizerId from the logged in user.
-	// tournament.OrganizerId = repo.Session.
+	token, found, err := repo.Session.Get(r.Header["cheetauth"][0])
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	if !found {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	tournament.OrganizerId, err = strconv.Atoi(string(token[:]))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
 	id, err := repo.TS.InsertTournament(tournament)
 	if err != nil {

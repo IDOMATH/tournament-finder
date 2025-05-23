@@ -72,22 +72,22 @@ func (s *UserStore) DeleteUser(id int) error {
 	return err
 }
 
-func (s *UserStore) Login(email, password string) error {
+func (s *UserStore) Login(email, password string) (int, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
 	var u types.User
 
-	query := `select email, password_hash from users where email = $1`
-	err := s.Db.QueryRowContext(ctx, query, email).Scan(&u.Email, &u.PasswordHash)
+	query := `select email, password_hash, id from users where email = $1`
+	err := s.Db.QueryRowContext(ctx, query, email).Scan(&u.Email, &u.PasswordHash, &u.Id)
 	if err != nil {
-		return errors.New("error getting user from database")
+		return 0, errors.New("error getting user from database")
 	}
 
 	err = bcrypt.CompareHashAndPassword([]byte(u.PasswordHash), []byte(password))
 
 	if err != nil {
-		return errors.New("incorrect password")
+		return 0, errors.New("incorrect password")
 	}
-	return nil
+	return u.Id, nil
 }
