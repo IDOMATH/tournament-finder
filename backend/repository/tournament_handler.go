@@ -47,7 +47,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 
 func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Request) {
 	var tournament types.Tournament
-	tournament.Name = r.FormValue("name")
+	json.NewDecoder(r.Body).Decode(&tournament.Name)
 
 	updatedTournament, err := repo.TS.UpdateTournament(tournament)
 	if err != nil {
