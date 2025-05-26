@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/IDOMATH/tournament-finder/repository"
+	"github.com/IDOMATH/tournament-finder/util"
 )
 
 type Middleware func(http.HandlerFunc) http.HandlerFunc
@@ -34,10 +35,10 @@ func Authenticate(repo *repository.Repository) Middleware {
 			if !found {
 				fmt.Println("NOT AUTHENTICATED")
 				// Potentially do some rerouting if the endpoint is protected
+				w.WriteHeader(http.StatusUnauthorized)
 			}
-			if found {
-				fmt.Println(t)
-			}
+			id := util.IntifyId(t)
+			fmt.Println(id)
 
 			next(w, r)
 		}

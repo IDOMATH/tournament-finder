@@ -35,7 +35,7 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 }
 
 func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request) {
-	var user types.User
+	var user types.NewUser
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -47,6 +47,7 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error inserting user"))
+		fmt.Println(err)
 		return
 	}
 

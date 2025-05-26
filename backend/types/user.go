@@ -11,3 +11,9 @@ type LoginFormUser struct {
 	Email    string
 	Password string
 }
+
+type NewUser struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	Name     string `json:"name"`
+}

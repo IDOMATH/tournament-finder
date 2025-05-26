@@ -20,7 +20,7 @@ func NewUserStore(db *sql.DB) *UserStore {
 	}
 }
 
-func (s *UserStore) InsertUser(user types.User) (int, error) {
+func (s *UserStore) InsertUser(user types.NewUser) (int, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
