@@ -13,12 +13,40 @@ import (
 )
 
 func main() {
+
+	server := setup()
+
+	fmt.Println("Starting on port ", server.Addr)
+	log.Fatal(server.ListenAndServe())
+}
+
+func setup() *http.Server {
+
+	serverPort := util.GetEnvValue("SERVEPORT", "8080")
+
 	router := http.NewServeMux()
 	server := http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprint(":", serverPort),
 		Handler: router,
 	}
 
+	postgresDb := setupDbConnection()
+
+	repo := repository.Repository{}
+
+	repo.TS = *db.NewTournamentStore(postgresDb.SQL)
+
+	repo.US = *db.NewUserStore(postgresDb.SQL)
+
+	memstore := memorystore.New()
+	repo.Session = memstore
+
+	registerRoutes(router, &repo)
+
+	return &server
+}
+
+func setupDbConnection() *db.DB {
 	dbHost := util.GetEnvValue("DBHOST", "localhost")
 	dbPort := util.GetEnvValue("DBPORT", "5432")
 	dbName := util.GetEnvValue("DBNAME", "portfolio")
@@ -33,17 +61,12 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println("Connected to Postgres")
+	return postgresDb
+}
 
-	repo := repository.Repository{}
+func registerRoutes(router *http.ServeMux, repo *repository.Repository) {
 
-	repo.TS = *db.NewTournamentStore(postgresDb.SQL)
-
-	repo.US = *db.NewUserStore(postgresDb.SQL)
-
-	memstore := memorystore.New()
-	repo.Session = memstore
-
-	stack := []middleware.Middleware{middleware.Authenticate(&repo), middleware.Log()}
+	stack := []middleware.Middleware{middleware.Authenticate(repo), middleware.Log()}
 
 	router.HandleFunc("GET /tournaments", middleware.Use(repo.HandleGetTournaments, stack...))
 	router.HandleFunc("POST /tournaments", repo.HandlePostTournament)
@@ -53,7 +76,4 @@ func main() {
 	router.HandleFunc("GET /user/{id}", repo.HandleGetUserById)
 	router.HandleFunc("POST /user", repo.HandlePostNewUser)
 	router.HandleFunc("POST /login", repo.HandleLogin)
-
-	fmt.Println("Starting on port 8080")
-	log.Fatal(server.ListenAndServe())
 }
