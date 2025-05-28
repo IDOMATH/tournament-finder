@@ -49,7 +49,7 @@ func setup() *http.Server {
 func setupDbConnection() *db.DB {
 	dbHost := util.GetEnvValue("DBHOST", "localhost")
 	dbPort := util.GetEnvValue("DBPORT", "5432")
-	dbName := util.GetEnvValue("DBNAME", "portfolio")
+	dbName := util.GetEnvValue("DBNAME", "tournament-finder")
 	dbUser := util.GetEnvValue("DBUSER", "postgres")
 	dbPass := util.GetEnvValue("DBPASS", "postgres")
 	dbSsl := util.GetEnvValue("DBSSL", "disable")

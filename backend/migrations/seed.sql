@@ -19,7 +19,8 @@ CREATE TABLE tournaments (
 CREATE TABLE users (
     id serial PRIMARY KEY,
     name VARCHAR(255),
-    email VARCHAR(320),
+    email VARCHAR(320) UNIQUE,
+    password_hash VARCHAR(255),
     updated_at TIMESTAMP,
     created_at TIMESTAMP
 )

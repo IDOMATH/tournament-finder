@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"time"
 
 	"github.com/IDOMATH/tournament-finder/types"
@@ -20,20 +21,28 @@ func NewUserStore(db *sql.DB) *UserStore {
 	}
 }
 
-func (s *UserStore) InsertUser(user types.NewUser) (int, error) {
+func (s *UserStore) InsertUser(user types.NewUser) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	var newId int
-	statement := `insert into users (name, email, updated_at, created_at) values ($1, $2, $3)`
-
-	err := s.Db.QueryRowContext(ctx, statement,
-		user.Name,
-		user.Email, time.Now(), time.Now()).Scan(&newId)
+	passwordHash, err := bcrypt.GenerateFromPassword([]byte(user.Password), 12)
 	if err != nil {
-		return 0, err
+		return err
 	}
-	return newId, nil
+
+	statement := `insert into users (name, email, password_hash, updated_at, created_at) values ($1, $2, $3, $4, $5)`
+
+	_, err = s.Db.ExecContext(ctx, statement,
+		user.Name,
+		user.Email,
+		passwordHash,
+		time.Now(),
+		time.Now())
+
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (s *UserStore) GetUserById(id int) (types.User, error) {
@@ -81,6 +90,7 @@ func (s *UserStore) Login(email, password string) (int, error) {
 	query := `select email, password_hash, id from users where email = $1`
 	err := s.Db.QueryRowContext(ctx, query, email).Scan(&u.Email, &u.PasswordHash, &u.Id)
 	if err != nil {
+		fmt.Println(err.Error())
 		return 0, errors.New("error getting user from database")
 	}
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/IDOMATH/tournament-finder/constants"
 	"github.com/IDOMATH/tournament-finder/types"
 )
 
@@ -43,7 +44,12 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	newId, err := repo.US.InsertUser(user)
+	err = repo.US.InsertUser(user)
+	if err.Error() == constants.EmailInAlreadyInUse {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("email already in use"))
+		return
+	}
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error inserting user"))
@@ -52,5 +58,5 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(fmt.Sprintf("Inserted user with ID: %d", newId)))
+	w.Write([]byte("Inserted new user"))
 }

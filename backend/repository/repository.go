@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/IDOMATH/session/memorystore"
+	"github.com/IDOMATH/tournament-finder/constants"
 	"github.com/IDOMATH/tournament-finder/db"
 	"github.com/IDOMATH/tournament-finder/types"
 )
@@ -31,5 +32,5 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 	stringToHash := strconv.Itoa(id) + time.Now().String()
 	token := sha256.Sum256([]byte(stringToHash))
 	repo.Session.Insert(string(token[:]), []byte(strconv.Itoa(id)), time.Now().Add(time.Hour))
-	r.Header["cheetauth"][0] = string(token[:])
+	r.Header[constants.AuthToken][0] = string(token[:])
 }
