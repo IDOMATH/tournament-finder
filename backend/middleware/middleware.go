@@ -36,6 +36,8 @@ func Authenticate(repo *repository.Repository) Middleware {
 				fmt.Println("NOT AUTHENTICATED")
 				// Potentially do some rerouting if the endpoint is protected
 				w.WriteHeader(http.StatusUnauthorized)
+				w.Write([]byte(r.Header.Get("cheetauth")))
+				return
 			}
 			id := util.IntifyId(t)
 			fmt.Println(id)
