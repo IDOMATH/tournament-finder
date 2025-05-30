@@ -68,6 +68,8 @@ func registerRoutes(router *http.ServeMux, repo *repository.Repository) {
 
 	stack := []middleware.Middleware{middleware.Authenticate(repo), middleware.Log()}
 
+	router.HandleFunc("GET /", middleware.Use(handleLoginTest, stack...))
+
 	router.HandleFunc("GET /tournaments", middleware.Use(repo.HandleGetTournaments, stack...))
 	router.HandleFunc("POST /tournaments", repo.HandlePostTournament)
 	router.HandleFunc("PUT /tournaments/{id}", repo.HandlePutTournament)
@@ -76,4 +78,8 @@ func registerRoutes(router *http.ServeMux, repo *repository.Repository) {
 	router.HandleFunc("GET /user/{id}", repo.HandleGetUserById)
 	router.HandleFunc("POST /user", repo.HandlePostNewUser)
 	router.HandleFunc("POST /login", repo.HandleLogin)
+}
+
+func handleLoginTest(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Logged in"))
 }

@@ -1,7 +1,6 @@
 package repository
 
 import (
-	"crypto/sha256"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -30,7 +29,9 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	stringToHash := strconv.Itoa(id) + time.Now().String()
-	token := sha256.Sum256([]byte(stringToHash))
-	repo.Session.Insert(string(token[:]), []byte(strconv.Itoa(id)), time.Now().Add(time.Hour))
-	w.Header().Set(constants.AuthToken, string(token[:]))
+	// token := sha256.Sum256([]byte(stringToHash))
+	// repo.Session.Insert(string(token[:]), []byte(strconv.Itoa(id)), time.Now().Add(time.Hour))
+	// w.Header().Set(constants.AuthToken, string(token[:]))
+	repo.Session.Insert(stringToHash, []byte(strconv.Itoa(id)), time.Now().Add(time.Hour))
+	w.Header().Set(constants.AuthToken, stringToHash)
 }
