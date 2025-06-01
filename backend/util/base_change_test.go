@@ -1,36 +1,40 @@
 package util
 
 import (
-	"fmt"
 	"testing"
 )
 
 func TestTenToThirtySix(t *testing.T) {
-	// expected := "0"
-	// got := TenToThirtysix(0)
-	// if got != expected {
-	// 	t.Error("Expected : ", expected, " but got: ", got)
-	// }
-
-	// expected = "5"
-	// got = TenToThirtysix(5)
-	// if got != expected {
-	// 	t.Error("Expected : ", expected, " but got: ", got)
-	// }
-
-	// expected = "9"
-	// got = TenToThirtysix(9)
-	// if got != expected {
-	// 	t.Error("Expected : ", expected, " but got: ", got)
-	// }
-
-	expected := "a"
-	got := TenToThirtysix(10)
+	expected := "0"
+	got := TenToThirtysix(0)
 	if got != expected {
 		t.Error("Expected : ", expected, " but got: ", got)
 	}
 
-	fmt.Println("test '10:36'")
+	expected = "5"
+	got = TenToThirtysix(5)
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = "9"
+	got = TenToThirtysix(9)
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = "a"
+	got = TenToThirtysix(10)
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = "2s"
+	got = TenToThirtysix(100)
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
 	expected = "10"
 	got = TenToThirtysix(36)
 	if got != expected {

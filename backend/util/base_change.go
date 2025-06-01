@@ -1,7 +1,6 @@
 package util
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
@@ -17,14 +16,20 @@ func TenToThirtysix(in int) string {
 		return string(rune(87 + in))
 	}
 
-	for ; in > 35; in -= 36 {
+	numPlaces := 0
+
+	for ; in > 0; in /= 36 {
 		place := in % 36
 		if place < 10 {
-			fmt.Println("less than 10 place: ", place)
 			reversedResult.WriteString(strconv.Itoa(place))
 		} else {
 			reversedResult.WriteString(sr(place))
 		}
+		numPlaces++
+	}
+
+	if len(reversedResult.String()) < numPlaces {
+		reversedResult.WriteString("1")
 	}
 
 	var result strings.Builder
@@ -39,10 +44,3 @@ func TenToThirtysix(in int) string {
 func sr(val int) string {
 	return string(rune(runeDifference + val))
 }
-
-// func Example() {
-// 	fmt.Println(int('a')) // 97
-// 	val := 10
-// 	fmt.Println(string(rune(87 + val)))
-// 	fmt.Println(string(rune(10 + 87)))
-// }
