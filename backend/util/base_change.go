@@ -3,19 +3,46 @@ package util
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
-func tenToThirtysix(in int) string {
+const runeDifference = 87
+
+func TenToThirtysix(in int) string {
+	var reversedResult strings.Builder
 	if in < 10 {
 		return strconv.Itoa(in)
 	}
-	_ = in % 100
+	if in < 36 {
+		return string(rune(87 + in))
+	}
 
-	return ""
+	for ; in > 35; in -= 36 {
+		place := in % 36
+		if place < 10 {
+			fmt.Println("less than 10 place: ", place)
+			reversedResult.WriteString(strconv.Itoa(place))
+		} else {
+			reversedResult.WriteString(sr(place))
+		}
+	}
+
+	var result strings.Builder
+
+	for i := len(reversedResult.String()) - 1; i >= 0; i-- {
+		result.WriteString(string(reversedResult.String()[i]))
+	}
+
+	return result.String()
 }
 
-func Example() {
-	fmt.Println(int('a')) // 97
-	//TODO: get this 97 to be an 'a' again
-	fmt.Println(rune(10 + 87))
+func sr(val int) string {
+	return string(rune(runeDifference + val))
 }
+
+// func Example() {
+// 	fmt.Println(int('a')) // 97
+// 	val := 10
+// 	fmt.Println(string(rune(87 + val)))
+// 	fmt.Println(string(rune(10 + 87)))
+// }
