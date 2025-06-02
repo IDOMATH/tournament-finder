@@ -7,6 +7,8 @@ import (
 
 const runeDifference = 87
 
+// TenToThirtysix takes a numner in base 10 and returns a string representation
+// of that number in base 36.
 func TenToThirtysix(in int) string {
 	var reversedResult strings.Builder
 	if in < 10 {
@@ -41,6 +43,8 @@ func TenToThirtysix(in int) string {
 	return result.String()
 }
 
+// sr takes an int value that should be between 10 and 35
+// I'm not about to put checks in for that, just use it properly
 func sr(val int) string {
 	return string(rune(runeDifference + val))
 }

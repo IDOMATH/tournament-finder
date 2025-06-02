@@ -53,3 +53,17 @@ func TestTenToThirtySix(t *testing.T) {
 		t.Error("Expected : ", expected, " but got: ", got)
 	}
 }
+
+func TestSr(t *testing.T) {
+	expected := "a"
+	got := sr(10)
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = "z"
+	got = sr(35)
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+}
