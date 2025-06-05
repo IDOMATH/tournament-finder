@@ -18,7 +18,7 @@ export class AgeDivisionComponent {
       return "taking registrations.";
     }
     if (this.availability() === 2) {
-      return "is full.";
+      return "full.";
     }
 
     return "has an error.  Let us know how you found this.";
