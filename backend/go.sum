@@ -1,3 +1,5 @@
+github.com/IDOMATH/CheetahMath v0.0.0-20250604015506-f5328303d328 h1:ol3X795PwL7D90YAQd7ZRJGepMpwzHG6kX0rVr9zRTM=
+github.com/IDOMATH/CheetahMath v0.0.0-20250604015506-f5328303d328/go.mod h1:sTB6I0Hh4sCJgOzrSZiQtHdUZradfnOMzq9tSi1jb2w=
 github.com/IDOMATH/session v0.0.0-20240621213231-2054073e1ced h1:+f/ifDxXTOJwROZ0NJ+xXn/t4JdH6FtNVun/xXOFlg4=
 github.com/IDOMATH/session v0.0.0-20240621213231-2054073e1ced/go.mod h1:+n0Dj1Z8SmmUNPxyXXqo2d1V+tyGpkXkCU/teExlm4E=
 github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
