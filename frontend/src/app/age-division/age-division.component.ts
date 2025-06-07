@@ -21,6 +21,7 @@ export class AgeDivisionComponent {
       return "full.";
     }
 
+    //TODO: this should probably log something somewhere
     return "has an error.  Let us know how you found this.";
   }
 }

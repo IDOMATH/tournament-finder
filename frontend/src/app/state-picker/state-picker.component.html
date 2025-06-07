@@ -1,0 +1,7 @@
+<select #status>
+  @for(option of stateOptions; track option) {
+  <option [value]="option" [selected]="option">
+    {{ option }}
+  </option>
+  }
+</select>
