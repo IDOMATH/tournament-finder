@@ -30,8 +30,15 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	t := int(time.Now().UnixMilli())*formulas.IntPow(10, formulas.GetDigits(id)) + id
-	token := util.TenToThirtysix(t)
+	token := makeToken(id)
+
 	repo.Session.Insert(token, []byte(strconv.Itoa(id)), time.Now().Add(time.Hour))
 	w.Header().Set(constants.AuthToken, token)
+}
+
+func makeToken(id int) string {
+
+	t := int(time.Now().UnixMilli())*formulas.IntPow(10, formulas.GetDigits(id)) + id
+	return util.TenToThirtysix(t)
+
 }
