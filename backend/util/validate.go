@@ -14,7 +14,7 @@ func IsValidPassword(password string) bool {
 	if len(password) < 8 {
 		return false
 	}
-	if !strings.ContainsAny(password, "u!@#$%^&*()_+-=[]{};:'\",<.>/?\\|") {
+	if !strings.ContainsAny(password, "!@#$%^&*()_+-=[]{};:'\",<.>/?\\|") {
 		return false
 	}
 	if !strings.ContainsAny(password, "abcdefghijklmnopqrstuvwxyz") {

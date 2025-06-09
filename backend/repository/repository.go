@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/IDOMATH/CheetahMath/formulas"
 	"github.com/IDOMATH/session/memorystore"
 	"github.com/IDOMATH/tournament-finder/constants"
 	"github.com/IDOMATH/tournament-finder/db"
@@ -30,15 +29,8 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token := makeToken(id)
+	token := util.MakeToken(id)
 
 	repo.Session.Insert(token, []byte(strconv.Itoa(id)), time.Now().Add(time.Hour))
 	w.Header().Set(constants.AuthToken, token)
-}
-
-func makeToken(id int) string {
-
-	t := int(time.Now().UnixMilli())*formulas.IntPow(10, formulas.GetDigits(id)) + id
-	return util.TenToThirtysix(t)
-
 }

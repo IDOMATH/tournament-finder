@@ -3,6 +3,9 @@ package util
 import (
 	"fmt"
 	"strconv"
+	"time"
+
+	"github.com/IDOMATH/CheetahMath/formulas"
 )
 
 func IntifyId(token []byte) int {
@@ -12,4 +15,11 @@ func IntifyId(token []byte) int {
 		return 0
 	}
 	return id
+}
+
+func MakeToken(id int) string {
+
+	t := int(time.Now().UnixMilli())*formulas.IntPow(10, formulas.GetDigits(id)) + id
+	return TenToThirtysix(t)
+
 }
