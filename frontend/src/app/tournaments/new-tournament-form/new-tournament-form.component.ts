@@ -10,6 +10,7 @@ import {
 } from "@angular/forms";
 import { Tournament } from "../../models/tournament.model";
 import { TournamentService } from "../../services/tournament-service";
+import { StatePickerComponent } from "../../state-picker/state-picker.component";
 
 function endDateNotBeforeStartDate(startControl: string, endControl: string) {
   return (control: AbstractControl) => {
@@ -29,7 +30,7 @@ function endDateNotBeforeStartDate(startControl: string, endControl: string) {
 
 @Component({
   selector: "app-new-tournament-form",
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, StatePickerComponent],
   templateUrl: "./new-tournament-form.component.html",
   styleUrl: "./new-tournament-form.component.css",
 })
