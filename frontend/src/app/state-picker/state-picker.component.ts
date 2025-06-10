@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, output } from "@angular/core";
 
 // type StateOptions =
 //   | "Alabama"
@@ -116,6 +116,7 @@ const stateOptions = [
   styleUrl: "./state-picker.component.css",
 })
 export class StatePickerComponent {
+  selectedState = output<string>();
   stateOptions = [
     "Alabama",
     "Alaska",
