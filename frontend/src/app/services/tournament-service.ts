@@ -78,4 +78,6 @@ export class TournamentService {
     JSON.stringify(tournament);
   }
   deleteTournament(id: number) {}
+  signUp(email: string, password: string) {}
+  login(email: string, password: string) {}
 }
