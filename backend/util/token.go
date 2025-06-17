@@ -23,3 +23,13 @@ func MakeToken(id int) string {
 	return TenToThirtysix(t)
 
 }
+
+func GetUserIdFromToken(token string) int {
+	// token -> base 10
+	baseTen := 12345423452654
+	// remove leading unixMilli()
+	leftOver := formulas.GetDigits(baseTen) - 13
+	return baseTen % formulas.IntPow(10, leftOver)
+
+	// should be left with Id
+}
