@@ -18,17 +18,18 @@ func IntifyId(token []byte) int {
 }
 
 func MakeToken(id int) string {
+	id64 := int64(id)
 
-	t := int(time.Now().UnixMilli())*formulas.IntPow(10, formulas.GetDigits(id)) + id
+	t := time.Now().UnixMilli()*formulas.IntPow(10, int64(formulas.GetDigits(id64))) + id64
 	return TenToThirtysix(t)
 
 }
 
-func GetUserIdFromToken(token string) int {
+func GetUserIdFromToken(token string) int64 {
 	// token -> base 10
-	baseTen := 12345423452654
+	var baseTen int64 = 12345423452654
 	// remove leading unixMilli()
-	leftOver := formulas.GetDigits(baseTen) - 13
+	leftOver := int64(formulas.GetDigits(baseTen) - 13)
 	return baseTen % formulas.IntPow(10, leftOver)
 
 	// should be left with Id

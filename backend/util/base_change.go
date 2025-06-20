@@ -9,10 +9,10 @@ const runeDifference = 87
 
 // TenToThirtysix takes a numner in base 10 and returns a string representation
 // of that number in base 36.
-func TenToThirtysix(in int) string {
+func TenToThirtysix(in int64) string {
 	var reversedResult strings.Builder
 	if in < 10 {
-		return strconv.Itoa(in)
+		return strconv.Itoa(int(in))
 	}
 	if in < 36 {
 		return string(rune(87 + in))
@@ -23,7 +23,7 @@ func TenToThirtysix(in int) string {
 	for ; in > 0; in /= 36 {
 		place := in % 36
 		if place < 10 {
-			reversedResult.WriteString(strconv.Itoa(place))
+			reversedResult.WriteString(strconv.Itoa(int(place)))
 		} else {
 			reversedResult.WriteString(sr(place))
 		}
@@ -43,8 +43,12 @@ func TenToThirtysix(in int) string {
 	return result.String()
 }
 
+func ThirtysixToTen(bts string) int64 {
+	return 0
+}
+
 // sr takes an int value that should be between 10 and 35
 // I'm not about to put checks in for that, just use it properly
-func sr(val int) string {
+func sr(val int64) string {
 	return string(rune(runeDifference + val))
 }
