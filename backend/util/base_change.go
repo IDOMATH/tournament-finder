@@ -1,13 +1,14 @@
 package util
 
 import (
+	"github.com/IDOMATH/CheetahMath/formulas"
 	"strconv"
 	"strings"
 )
 
 const runeDifference = 87
 
-// TenToThirtysix takes a numner in base 10 and returns a string representation
+// TenToThirtysix takes a number in base 10 and returns a string representation
 // of that number in base 36.
 func TenToThirtysix(in int64) string {
 	var reversedResult strings.Builder
@@ -44,7 +45,17 @@ func TenToThirtysix(in int64) string {
 }
 
 func ThirtysixToTen(bts string) int64 {
-	return 0
+	var baseTen int64 = 0
+	for i := 0; i < len(bts); i++ {
+		char := rune(bts[len(bts)-1-i])
+		if char-'0' > 9 {
+			char = char - runeDifference
+		} else {
+			char = char - 48
+		}
+		baseTen = baseTen + (int64(char) * formulas.IntPow(36, int64(i)))
+	}
+	return baseTen
 }
 
 // sr takes an int value that should be between 10 and 35

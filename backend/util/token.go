@@ -25,7 +25,7 @@ func MakeToken(id int) string {
 
 }
 
-func GetUserIdFromToken(token string) int64 {
+func GetUserIdFromToken(token []byte) int64 {
 	// token -> base 10
 	var baseTen int64 = 12345423452654
 	// remove leading unixMilli()

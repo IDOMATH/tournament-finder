@@ -67,3 +67,53 @@ func TestSr(t *testing.T) {
 		t.Error("Expected : ", expected, " but got: ", got)
 	}
 }
+
+func TestThirtysixToTen(t *testing.T) {
+	var expected int64 = 10
+	got := ThirtysixToTen("a")
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = 35
+	got = ThirtysixToTen("z")
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = 8
+	got = ThirtysixToTen("8")
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = 36
+	got = ThirtysixToTen("10")
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = 1295
+	got = ThirtysixToTen("zz")
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = 109
+	got = ThirtysixToTen("31")
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = 1296
+	got = ThirtysixToTen("100")
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+
+	expected = 1260
+	got = ThirtysixToTen("z0")
+	if got != expected {
+		t.Error("Expected : ", expected, " but got: ", got)
+	}
+}
