@@ -51,7 +51,7 @@ func ThirtysixToTen(bts string) int64 {
 		if char-'0' > 9 {
 			char = char - runeDifference
 		} else {
-			char = char - 48
+			char = char - '0'
 		}
 		baseTen = baseTen + (int64(char) * formulas.IntPow(36, int64(i)))
 	}
