@@ -8,7 +8,7 @@ import (
 	"github.com/IDOMATH/CheetahMath/formulas"
 )
 
-// time.Now().UnixMicro() won't add another digit for about 260 years
+// time.Now().UnixMilli() won't add another digit for about 260 years
 // so this is very safe because nobody will be using this when that happens.
 const unixMilliDigits = 13
 
