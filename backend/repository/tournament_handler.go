@@ -11,7 +11,11 @@ import (
 
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
 	var tournament types.Tournament
-	json.NewDecoder(r.Body).Decode(&tournament)
+	err := json.NewDecoder(r.Body).Decode(&tournament)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	//TODO: get the organizerId from the logged in user.
 	tokenVal, found, err := repo.Session.Get(r.Header["cheetauth"][0])
@@ -47,7 +51,11 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 
 func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Request) {
 	var tournament types.Tournament
-	json.NewDecoder(r.Body).Decode(&tournament.Name)
+	err := json.NewDecoder(r.Body).Decode(&tournament.Name)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
 
 	updatedTournament, err := repo.TS.UpdateTournament(tournament)
 	if err != nil {
@@ -75,14 +83,14 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	resTourments, err := json.Marshal(tournaments)
+	resTournaments, err := json.Marshal(tournaments)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error marshalling json"))
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-	w.Write(resTourments)
+	w.Write(resTournaments)
 }
 
 func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.Request) {
