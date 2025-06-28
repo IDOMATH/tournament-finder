@@ -298,6 +298,20 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	return tournament, err
 }
 
+func (s *TournamentStore) GetTournamentOrganizerId(id int) (int, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var organizerId int
+	query := `select organizer_id 
+	from tournaments where id = $1`
+
+	err := s.DB.QueryRowContext(ctx, query, id).Scan(
+		&organizerId,
+	)
+	return organizerId, err
+}
+
 func (s *TournamentStore) DeleteTournament(id int) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
