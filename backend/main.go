@@ -38,7 +38,7 @@ func setup() *http.Server {
 
 	repo.US = *db.NewUserStore(postgresDb.SQL)
 
-	memstore := memorystore.New()
+	memstore := memorystore.New[string]()
 	repo.Session = memstore
 
 	registerRoutes(router, &repo)
@@ -65,7 +65,6 @@ func setupDbConnection() *db.DB {
 }
 
 func registerRoutes(router *http.ServeMux, repo *repository.Repository) {
-
 	stack := []middleware.Middleware{middleware.Authenticate(repo), middleware.Log()}
 
 	router.HandleFunc("GET /", middleware.Use(handleLoginTest, stack...))

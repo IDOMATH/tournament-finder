@@ -16,7 +16,7 @@ import (
 type Repository struct {
 	TS      db.TournamentStore
 	US      db.UserStore
-	Session *memorystore.MemoryStore
+	Session *memorystore.MemoryStore[string]
 }
 
 func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
@@ -31,6 +31,6 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 
 	token := util.MakeToken(id)
 
-	repo.Session.Insert(token, []byte(strconv.Itoa(id)), time.Now().Add(time.Hour))
+	repo.Session.Insert(token, strconv.Itoa(id), time.Now().Add(time.Hour))
 	w.Header().Set(constants.AuthToken, token)
 }

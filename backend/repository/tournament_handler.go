@@ -6,7 +6,6 @@ import (
 	"strconv"
 
 	"github.com/IDOMATH/tournament-finder/types"
-	"github.com/IDOMATH/tournament-finder/util"
 )
 
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +17,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	}
 
 	//TODO: get the organizerId from the logged in user.
-	tokenVal, found, err := repo.Session.Get(r.Header["cheetauth"][0])
+	tokenVal, found := repo.Session.Get(r.Header["cheetauth"][0])
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
@@ -28,7 +27,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	tournament.OrganizerId = util.IntifyId(tokenVal)
+	tournament.OrganizerId, err = strconv.Atoi(tokenVal)
 	if tournament.OrganizerId == 0 {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

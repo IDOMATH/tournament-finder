@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/IDOMATH/tournament-finder/repository"
-	"github.com/IDOMATH/tournament-finder/util"
 )
 
 type Middleware func(http.HandlerFunc) http.HandlerFunc
@@ -32,7 +31,7 @@ func Authenticate(repo *repository.Repository) Middleware {
 	return func(next http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
 			// Make and hook up session storage to repository
-			t, found, _ := repo.Session.Get(r.Header.Get("cheetauth"))
+			t, found := repo.Session.Get(r.Header.Get("cheetauth"))
 			if !found {
 				fmt.Println("NOT AUTHENTICATED")
 				// Potentially do some rerouting if the endpoint is protected
@@ -40,7 +39,15 @@ func Authenticate(repo *repository.Repository) Middleware {
 				w.Write([]byte(r.Header.Get("cheetauth")))
 				return
 			}
-			id := util.IntifyId(t)
+			id, err := strconv.Atoi(t)
+			if err != nil {
+				fmt.Println("error converting token id to int")
+				// Potentially do some rerouting if the endpoint is protected
+				w.WriteHeader(http.StatusUnauthorized)
+				w.Write([]byte(r.Header.Get("cheetauth")))
+				return
+
+			}
 			fmt.Println(id)
 
 			next(w, r)
@@ -51,7 +58,7 @@ func Authenticate(repo *repository.Repository) Middleware {
 func Authorize(repo *repository.Repository) Middleware {
 	return func(next http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
-			t, found, _ := repo.Session.Get(r.Header.Get("cheetauth"))
+			t, found := repo.Session.Get(r.Header.Get("cheetauth"))
 			if !found {
 				fmt.Println("NOT AUTHENTICATED")
 				// Potentially do some rerouting if the endpoint is protected
@@ -59,7 +66,15 @@ func Authorize(repo *repository.Repository) Middleware {
 				w.Write([]byte(r.Header.Get("cheetauth")))
 				return
 			}
-			id := util.IntifyId(t)
+			id, err := strconv.Atoi(t)
+			if err != nil {
+				fmt.Println("error converting token id to int")
+				// Potentially do some rerouting if the endpoint is protected
+				w.WriteHeader(http.StatusUnauthorized)
+				w.Write([]byte(r.Header.Get("cheetauth")))
+				return
+
+			}
 			tournamentId, err := strconv.Atoi(r.PathValue("id"))
 			if err != nil {
 				w.WriteHeader(http.StatusBadRequest)

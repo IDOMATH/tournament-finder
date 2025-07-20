@@ -6,6 +6,8 @@ github.com/IDOMATH/CheetahMath v0.0.0-20250618175636-d19ea7659ffd h1:eEAMi4VPx9Q
 github.com/IDOMATH/CheetahMath v0.0.0-20250618175636-d19ea7659ffd/go.mod h1:sTB6I0Hh4sCJgOzrSZiQtHdUZradfnOMzq9tSi1jb2w=
 github.com/IDOMATH/session v0.0.0-20240621213231-2054073e1ced h1:+f/ifDxXTOJwROZ0NJ+xXn/t4JdH6FtNVun/xXOFlg4=
 github.com/IDOMATH/session v0.0.0-20240621213231-2054073e1ced/go.mod h1:+n0Dj1Z8SmmUNPxyXXqo2d1V+tyGpkXkCU/teExlm4E=
+github.com/IDOMATH/session v0.0.0-20250717031237-eaa4d24abcea h1:jhuSbZrd6q7FPfSITpAFychUPFqL3PsIoSS0aj89V38=
+github.com/IDOMATH/session v0.0.0-20250717031237-eaa4d24abcea/go.mod h1:+n0Dj1Z8SmmUNPxyXXqo2d1V+tyGpkXkCU/teExlm4E=
 github.com/lib/pq v1.10.9 h1:YXG7RB+JIjhP29X+OtkiDnYaXQwpS4JEWq7dtCCRUEw=
 github.com/lib/pq v1.10.9/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 golang.org/x/crypto v0.38.0 h1:jt+WWG8IZlBnVbomuhg2Mdq0+BBQaHbtqHEFEigjUV8=
