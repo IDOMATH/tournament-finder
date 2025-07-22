@@ -1,9 +1,13 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { Tournament } from "../models/tournament.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({ providedIn: "root" })
 export class TournamentService {
+  private httpClient = inject(HttpClient);
+
   getTournamentById(id: number): Tournament {
+    this.httpClient.get("http://localhost:8080/tournaments/" + id);
     const tournament = {
       name: "Test Tournament",
       locationName: "Joe's House",
