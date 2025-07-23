@@ -31,6 +31,7 @@ export class TournamentService {
     return tournament;
   }
   getTournaments(): Tournament[] {
+    this.httpClient.get("http://localhost:8080/tournaments/");
     const tournaments = [
       {
         name: "Test One",
@@ -77,9 +78,11 @@ export class TournamentService {
   postTournament(tournament: Tournament) {
     JSON.stringify(tournament);
     // call to post tournament
+    this.httpClient.post("http://localhost:8080/tournaments/", tournament);
   }
   putTournament(tournament: Tournament) {
     JSON.stringify(tournament);
+    this.httpClient.put("http://localhost:8080/tournaments/", tournament);
   }
   deleteTournament(id: number) {}
   signUp(email: string, password: string) {}
