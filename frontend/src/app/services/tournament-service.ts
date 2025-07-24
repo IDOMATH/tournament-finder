@@ -84,7 +84,9 @@ export class TournamentService {
     JSON.stringify(tournament);
     this.httpClient.put("http://localhost:8080/tournaments/", tournament);
   }
-  deleteTournament(id: number) {}
+  deleteTournament(id: number) {
+    this.httpClient.delete("http://localhost:8080/tournaments/" + id);
+  }
   signUp(email: string, password: string) {}
   login(email: string, password: string) {}
 }
