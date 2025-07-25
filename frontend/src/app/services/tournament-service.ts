@@ -88,5 +88,7 @@ export class TournamentService {
     this.httpClient.delete("http://localhost:8080/tournaments/" + id);
   }
   signUp(email: string, password: string) {}
-  login(email: string, password: string) {}
+  login(email: string, password: string) {
+    this.httpClient.get("http://localhost:8080/login/");
+  }
 }
