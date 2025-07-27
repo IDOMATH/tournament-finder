@@ -87,10 +87,4 @@ export class TournamentService {
   deleteTournament(id: number) {
     this.httpClient.delete("http://localhost:8080/tournaments/" + id);
   }
-  signUp(email: string, password: string) {
-    this.httpClient.post("http://localhost:8080/users/", { email, password });
-  }
-  login(email: string, password: string) {
-    this.httpClient.post("http://localhost:8080/login/", { email, password });
-  }
 }
