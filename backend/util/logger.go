@@ -3,6 +3,7 @@ package util
 import (
 	"fmt"
 	"os"
+	"time"
 )
 
 type Logger struct {
@@ -10,7 +11,7 @@ type Logger struct {
 }
 
 func (l *Logger) LogError(method, message string) {
-	msg := fmt.Sprintf("ERROR in method: %s - %s", method, message)
+	msg := fmt.Sprintf("%s - ERROR in method: %s - %s", time.Now(), method, message)
 	fmt.Println(msg)
 	// Write to some log location
 	err := os.WriteFile(l.LogLocation, []byte(msg), 0644)
