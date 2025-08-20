@@ -21,7 +21,7 @@ func Use(handler http.HandlerFunc, middlewares ...Middleware) http.HandlerFunc {
 func Log() Middleware {
 	return func(next http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
-			fmt.Printf("%v:\t%s\t%s", time.Now(), r.RemoteAddr, r.URL)
+			fmt.Printf("%v:\t%s\t%s\t%s", time.Now(), r.RemoteAddr, r.URL, r.Header.Get("cheetauth"))
 			next(w, r)
 		}
 	}
