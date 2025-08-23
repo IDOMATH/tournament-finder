@@ -1,6 +1,6 @@
 import { Component, inject } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { TournamentService, UserService } from "../../services/user-service";
+import { UserService } from "../../services/user-service";
 
 @Component({
   selector: "app-login",
@@ -9,13 +9,16 @@ import { TournamentService, UserService } from "../../services/user-service";
   styleUrl: "./login.component.css",
 })
 export class LoginComponent {
-  private tournamentService = inject(UserService);
+  private userService = inject(UserService);
   form = new FormGroup({
-    email: new FormControl({ validators: [Validators.required] }),
-    password: new FormControl({ validators: [Validators.required] }),
+    email: new FormControl("", { validators: [Validators.required] }),
+    password: new FormControl("", { validators: [Validators.required] }),
   });
 
   onSubmit() {
-    console.log("Submitted");
+    this.userService.login(
+      this.form.controls.email.value!,
+      this.form.controls.password.value!
+    );
   }
 }
