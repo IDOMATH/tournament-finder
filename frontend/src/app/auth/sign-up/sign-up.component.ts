@@ -27,6 +27,5 @@ export class SignUpComponent {
       this.form.controls.email.value!,
       this.form.controls.passwords.controls.password.value!
     );
-    console.log("submitted");
   }
 }

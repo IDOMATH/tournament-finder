@@ -1,14 +1,11 @@
 import { Component, inject } from "@angular/core";
 import {
   AbstractControl,
-  FormArray,
   FormControl,
   FormGroup,
-  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { Tournament } from "../../models/tournament.model";
 import { TournamentService } from "../../services/tournament-service";
 import { StatePickerComponent } from "../../state-picker/state-picker.component";
 
