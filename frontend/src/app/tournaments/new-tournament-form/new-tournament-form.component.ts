@@ -1,6 +1,5 @@
 import { Component, inject } from "@angular/core";
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -8,22 +7,7 @@ import {
 } from "@angular/forms";
 import { TournamentService } from "../../services/tournament-service";
 import { StatePickerComponent } from "../../state-picker/state-picker.component";
-
-function endDateNotBeforeStartDate(startControl: string, endControl: string) {
-  return (control: AbstractControl) => {
-    const startDateString = control.get(startControl)?.value;
-    const endDateString = control.get(endControl)?.value;
-
-    const startDate = new Date(startDateString);
-    const endDate = new Date(endDateString);
-
-    if (endDate < startDate) {
-      return { endDateBeforeStartDate: true };
-    }
-
-    return null;
-  };
-}
+import { endDateNotBeforeStartDate } from "../../validators/end-date-after-begin-date";
 
 @Component({
   selector: "app-new-tournament-form",
