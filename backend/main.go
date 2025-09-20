@@ -70,7 +70,7 @@ func registerRoutes(router *http.ServeMux, repo *repository.Repository) {
 	router.HandleFunc("GET /", middleware.Use(handleLoginTest, stack...))
 
 	router.HandleFunc("GET /tournaments", middleware.Use(repo.HandleGetTournaments, stack...))
-	router.HandleFunc("POST /tournaments", repo.HandlePostTournament)
+	router.HandleFunc("POST /tournaments", middleware.Use(repo.HandlePostTournament, stack...))
 	router.HandleFunc("PUT /tournaments/{id}", repo.HandlePutTournament)
 	router.HandleFunc("GET /tournaments/{id}", repo.HandleGetTournamentById)
 	router.HandleFunc("DELETE /tournaments/{id}", repo.HandleDeleteTournament)
