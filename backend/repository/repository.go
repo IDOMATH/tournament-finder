@@ -34,3 +34,8 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 	repo.Session.Insert(token, strconv.Itoa(id), time.Now().Add(time.Hour))
 	w.Header().Set(constants.AuthToken, token)
 }
+
+func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {
+	token := w.Header().Get(constants.AuthToken)
+	repo.Session.Delete(token)
+}
