@@ -17,6 +17,7 @@ type Repository struct {
 	TS      db.TournamentStore
 	US      db.UserStore
 	Session *memorystore.MemoryStore[string]
+	Logger  *util.Logger
 }
 
 func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
@@ -25,7 +26,7 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 
 	id, err := repo.US.Login(loginUser.Email, loginUser.Password)
 	if err != nil {
-		w.Write([]byte(err.Error()))
+		repo.Logger.LogError("HandleLogin", err.Error())
 		return
 	}
 
@@ -36,7 +37,6 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {
-	// TODO: maybe check if the token is actually removed.  Can get before and after?
 	token := w.Header().Get(constants.AuthToken)
 	repo.Session.Delete(token)
 	w.WriteHeader(http.StatusNoContent)

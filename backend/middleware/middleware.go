@@ -3,7 +3,6 @@ package middleware
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"strconv"
 	"time"
 
@@ -24,7 +23,6 @@ func Log() Middleware {
 		return func(w http.ResponseWriter, r *http.Request) {
 			out := fmt.Sprintf("%v:\t%s\t%s\t%s\n", time.Now(), r.RemoteAddr, r.URL, r.Header.Get("cheetauth"))
 			fmt.Print(out)
-			os.WriteFile("/logs/log.txt", []byte(out), 0644)
 			next(w, r)
 		}
 	}

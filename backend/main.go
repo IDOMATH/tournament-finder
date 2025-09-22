@@ -35,11 +35,12 @@ func setup() *http.Server {
 	repo := repository.Repository{}
 
 	repo.TS = *db.NewTournamentStore(postgresDb.SQL)
-
 	repo.US = *db.NewUserStore(postgresDb.SQL)
 
 	memstore := memorystore.New[string]()
 	repo.Session = memstore
+
+	repo.Logger = util.NewLogger("/logs/log.txt")
 
 	registerRoutes(router, &repo)
 
