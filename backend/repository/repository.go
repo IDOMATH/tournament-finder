@@ -36,6 +36,8 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (repo *Repository) HandleLogout(w http.ResponseWriter, r *http.Request) {
+	// TODO: maybe check if the token is actually removed.  Can get before and after?
 	token := w.Header().Get(constants.AuthToken)
 	repo.Session.Delete(token)
+	w.WriteHeader(http.StatusNoContent)
 }

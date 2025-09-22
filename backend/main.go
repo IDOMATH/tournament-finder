@@ -77,7 +77,7 @@ func registerRoutes(router *http.ServeMux, repo *repository.Repository) {
 	router.HandleFunc("GET /user/{id}", repo.HandleGetUserById)
 	router.HandleFunc("POST /user", repo.HandlePostNewUser)
 	router.HandleFunc("POST /login", repo.HandleLogin)
-	router.HandleFunc("POST /logout" repo.HandleLogout)
+	router.HandleFunc("POST /logout", repo.HandleLogout)
 }
 
 func handleLoginTest(w http.ResponseWriter, r *http.Request) {
