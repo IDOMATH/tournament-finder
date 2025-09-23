@@ -14,6 +14,11 @@ func NewLogger(logLocation string) *Logger {
 	return &Logger{logLocation: logLocation}
 }
 
+func (l *Logger) LogEvent(message string) {
+	msg := fmt.Sprintf("%s - %s", time.Now(), message)
+	fmt.Println(msg)
+}
+
 func (l *Logger) LogError(method, message string) {
 	msg := fmt.Sprintf("%s - ERROR in method: %s - %s", time.Now(), method, message)
 	fmt.Println(msg)
