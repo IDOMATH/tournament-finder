@@ -16,7 +16,9 @@ export class TournamentService {
       .pipe(map((resData) => this.tournament.set(resData.tournament)));
   }
   getTournaments(): Tournament[] {
-    this.httpClient.get("http://localhost:8080/tournaments/");
+    this.httpClient.get<{ tournaments: Tournament[] }>(
+      "http://localhost:8080/tournaments/"
+    );
     const tournaments = [
       {
         name: "Test One",
