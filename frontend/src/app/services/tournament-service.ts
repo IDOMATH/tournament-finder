@@ -10,6 +10,8 @@ export class TournamentService {
   private tournament = signal<Tournament | undefined>(undefined);
   private tournaments = signal<Tournament[]>([]);
 
+  loadedTournaments = this.tournaments.asReadonly();
+
   setFetchedTournaments() {
     return this.getTournaments().pipe(
       tap({

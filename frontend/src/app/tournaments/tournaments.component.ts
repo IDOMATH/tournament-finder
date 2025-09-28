@@ -11,5 +11,13 @@ import { TournamentCardComponent } from "./tournament-card/tournament-card.compo
 export class TournamentsComponent {
   private tournamentService = inject(TournamentService);
 
-  tournaments = this.tournamentService.getTournaments();
+  tournaments = this.tournamentService.loadedTournaments;
+
+  ngOnInit(): void {
+    const subscription = this.tournamentService
+      .setFetchedTournaments()
+      .subscribe();
+
+    // clean up subscription with destroyRef
+  }
 }
