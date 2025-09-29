@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, DestroyRef, inject } from "@angular/core";
 import { TournamentService } from "../services/tournament-service";
 import { TournamentCardComponent } from "./tournament-card/tournament-card.component";
 
@@ -10,6 +10,7 @@ import { TournamentCardComponent } from "./tournament-card/tournament-card.compo
 })
 export class TournamentsComponent {
   private tournamentService = inject(TournamentService);
+  private destroyRef = inject(DestroyRef);
 
   tournaments = this.tournamentService.loadedTournaments;
 
