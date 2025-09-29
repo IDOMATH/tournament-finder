@@ -19,6 +19,8 @@ export class TournamentsComponent {
       .setFetchedTournaments()
       .subscribe();
 
-    // clean up subscription with destroyRef
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
   }
 }
