@@ -17,7 +17,9 @@ export class TournamentsComponent {
   ngOnInit(): void {
     const subscription = this.tournamentService
       .setFetchedTournaments()
-      .subscribe();
+      .subscribe({
+        error: (error) => console.log(error.message),
+      });
 
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
