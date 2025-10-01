@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from "@angular/core";
 import { Tournament } from "../models/tournament.model";
 import { HttpClient } from "@angular/common/http";
-import { map, tap } from "rxjs";
+import { catchError, map, tap, throwError } from "rxjs";
 import { outputToObservable } from "@angular/core/rxjs-interop";
 
 @Injectable({ providedIn: "root" })
@@ -37,7 +37,12 @@ export class TournamentService {
   postTournament(tournament: Tournament) {
     JSON.stringify(tournament);
     // call to post tournament
-    this.httpClient.post("http://localhost:8080/tournaments/", tournament);
+    this.httpClient.post("http://localhost:8080/tournaments/", tournament).pipe(
+      catchError((error) => {
+        console.log("failed to store tournament");
+        return throwError(() => new Error("failed to store tournament"));
+      })
+    );
   }
   putTournament(tournament: Tournament) {
     JSON.stringify(tournament);
