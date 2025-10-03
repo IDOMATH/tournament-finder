@@ -49,6 +49,11 @@ export class TournamentService {
     this.httpClient.put("http://localhost:8080/tournaments/", tournament);
   }
   deleteTournament(id: number) {
-    this.httpClient.delete("http://localhost:8080/tournaments/" + id);
+    this.httpClient.delete("http://localhost:8080/tournaments/" + id).pipe(
+      catchError((error) => {
+        console.log("failed to delete tournament");
+        return throwError(() => Error("failed to delete tournament"));
+      })
+    );
   }
 }
