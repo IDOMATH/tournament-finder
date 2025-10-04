@@ -44,10 +44,17 @@ export class TournamentService {
       })
     );
   }
+
   putTournament(tournament: Tournament) {
     JSON.stringify(tournament);
-    this.httpClient.put("http://localhost:8080/tournaments/", tournament);
+    this.httpClient.put("http://localhost:8080/tournaments/", tournament).pipe(
+      catchError((error) => {
+        console.log("failed to update tournament");
+        return throwError(() => Error("failed to update tournament"));
+      })
+    );
   }
+
   deleteTournament(id: number) {
     this.httpClient.delete("http://localhost:8080/tournaments/" + id).pipe(
       catchError((error) => {
