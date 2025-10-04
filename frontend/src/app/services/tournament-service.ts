@@ -2,7 +2,6 @@ import { inject, Injectable, signal } from "@angular/core";
 import { Tournament } from "../models/tournament.model";
 import { HttpClient } from "@angular/common/http";
 import { catchError, map, tap, throwError } from "rxjs";
-import { outputToObservable } from "@angular/core/rxjs-interop";
 
 @Injectable({ providedIn: "root" })
 export class TournamentService {
