@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { catchError } from "rxjs";
+import { catchError, throwError } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class UserService {
@@ -16,6 +16,13 @@ export class UserService {
       );
   }
   login(email: string, password: string) {
-    this.httpClient.post("http://localhost:8080/login/", { email, password });
+    this.httpClient
+      .post("http://localhost:8080/login/", { email, password })
+      .pipe(
+        catchError((error) => {
+          console.log("failed to log in");
+          return throwError(() => new Error("failed to log in"));
+        })
+      );
   }
 }
