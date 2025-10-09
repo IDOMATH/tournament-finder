@@ -5,6 +5,8 @@ type User struct {
 	Email        string
 	Id           int
 	PasswordHash string
+	IsOrganizer  bool
+	IsCoach      bool
 }
 
 type LoginFormUser struct {
