@@ -21,6 +21,8 @@ CREATE TABLE users (
     name VARCHAR(255),
     email VARCHAR(320) UNIQUE,
     password_hash VARCHAR(255),
+    is_organizer BOOLEAN,
+    is_coach BOOLEAN,
     updated_at TIMESTAMP,
     created_at TIMESTAMP
 )
