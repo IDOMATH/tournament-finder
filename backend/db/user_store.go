@@ -53,9 +53,9 @@ func (s *UserStore) GetUserById(id int) (types.User, error) {
 
 	var u types.User
 
-	query := `select name, email from users where id = $1`
+	query := `select name, email, is_organizer, is_coach from users where id = $1`
 
-	err := s.Db.QueryRowContext(ctx, query, id).Scan(&u.Name, &u.Email)
+	err := s.Db.QueryRowContext(ctx, query, id).Scan(&u.Name, &u.Email, &u.IsOrganizer, &u.IsCoach)
 	return u, err
 }
 
