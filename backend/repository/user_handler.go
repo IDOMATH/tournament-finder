@@ -60,3 +60,7 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte("Inserted new user"))
 }
+
+func HandleGetTournamentsForCoach(w http.ResponseWriter, r *http.Request) {
+
+}

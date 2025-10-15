@@ -30,7 +30,9 @@ func (s *UserStore) InsertUser(user types.NewUser) error {
 		return err
 	}
 
-	statement := `insert into users (name, email, password_hash, is_organizer, is_coach, updated_at, created_at) values ($1, $2, $3, $4, $5, $6, $7)`
+	statement := `insert into users 
+	(name, email, password_hash, is_organizer, is_coach, updated_at, created_at) 
+	values ($1, $2, $3, $4, $5, $6, $7)`
 
 	_, err = s.Db.ExecContext(ctx, statement,
 		user.Name,
@@ -68,7 +70,9 @@ func (s *UserStore) UpdateUser(u types.User, id int) (types.User, error) {
 	query := `upate users set name = $1, email = $2, is_organizer = $3, is_coach = $4, updated_at = $5 where id = $6
 			  returning name, email, is_organizer, is_coach, id`
 
-	err := s.Db.QueryRowContext(ctx, query, u.Name, u.Email, u.IsOrganizer, u.IsCoach, time.Now(), u.Id).Scan(&updatedUser.Name, &updatedUser.Email, &updatedUser.IsOrganizer, &updatedUser.IsCoach, &updatedUser.Id)
+	err := s.Db.QueryRowContext(ctx, query,
+		u.Name, u.Email, u.IsOrganizer, u.IsCoach, time.Now(), u.Id).Scan(
+		&updatedUser.Name, &updatedUser.Email, &updatedUser.IsOrganizer, &updatedUser.IsCoach, &updatedUser.Id)
 
 	return updatedUser, err
 }
