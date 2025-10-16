@@ -61,6 +61,10 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 	w.Write([]byte("Inserted new user"))
 }
 
-func HandleGetTournamentsForCoach(w http.ResponseWriter, r *http.Request) {
+func HandleGetTournamentsByCoachId(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func HandleGetTournamentsByOrganizerId(w http.ResponseWriter, r *http.Request) {
 
 }
