@@ -62,9 +62,10 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 }
 
 func HandleGetTournamentsByCoachId(w http.ResponseWriter, r *http.Request) {
+	strId := r.PathValue("id")
 
 }
 
 func HandleGetTournamentsByOrganizerId(w http.ResponseWriter, r *http.Request) {
-
+	strId := r.PathValue("id")
 }
