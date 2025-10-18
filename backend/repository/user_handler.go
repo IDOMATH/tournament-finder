@@ -61,11 +61,11 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 	w.Write([]byte("Inserted new user"))
 }
 
-func HandleGetTournamentsByCoachId(w http.ResponseWriter, r *http.Request) {
+func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *http.Request) {
 	strId := r.PathValue("id")
 
 }
 
-func HandleGetTournamentsByOrganizerId(w http.ResponseWriter, r *http.Request) {
+func (repo *Repository) HandleGetTournamentsByOrganizerId(w http.ResponseWriter, r *http.Request) {
 	strId := r.PathValue("id")
 }
