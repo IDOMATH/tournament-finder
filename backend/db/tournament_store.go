@@ -312,6 +312,15 @@ func (s *TournamentStore) GetTournamentOrganizerId(id int) (int, error) {
 	return organizerId, err
 }
 
+func (s *TournamentStore) GetAllTournamentsByOrganizerId(id int) []types.Tournament {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var tournaments []types.Tournament
+
+	return tournaments
+}
+
 func (s *TournamentStore) DeleteTournament(id int) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
