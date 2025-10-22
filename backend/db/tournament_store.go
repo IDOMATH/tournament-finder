@@ -317,6 +317,12 @@ func (s *TournamentStore) GetAllTournamentsByOrganizerId(id int) []types.Tournam
 	defer cancel()
 
 	var tournaments []types.Tournament
+	query := `SELECT name, location_name,
+	street_address, city, state,
+	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
+    is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
+	organizer_id, is_full 
+	FROM tournaments WHERE organizer_id = $1`
 
 	return tournaments
 }
