@@ -324,6 +324,8 @@ func (s *TournamentStore) GetAllTournamentsByOrganizerId(id int) []types.Tournam
 	organizer_id, is_full 
 	FROM tournaments WHERE organizer_id = $1`
 
+	rows, err := s.DB.QueryContext(ctx, query, id)
+
 	return tournaments
 }
 
