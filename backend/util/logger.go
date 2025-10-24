@@ -19,7 +19,7 @@ func (l *Logger) LogEvent(message string) {
 	fmt.Println(msg)
 }
 
-func (l *Logger) LogError(method, message string) {
+func (l *Logger) LogError(method, message string, e error) {
 	msg := fmt.Sprintf("%s - ERROR in method: %s - %s", time.Now(), method, message)
 	fmt.Println(msg)
 	// Write to some log location

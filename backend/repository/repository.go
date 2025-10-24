@@ -26,7 +26,7 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 
 	id, err := repo.US.Login(loginUser.Email, loginUser.Password)
 	if err != nil {
-		repo.Logger.LogError("HandleLogin", err.Error())
+		repo.Logger.LogError("HandleLogin", "could not log in", err)
 		return
 	}
 

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/IDOMATH/tournament-finder/constants"
 	"github.com/IDOMATH/tournament-finder/types"
@@ -70,5 +71,20 @@ func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *
 func (repo *Repository) HandleGetTournamentsByOrganizerId(w http.ResponseWriter, r *http.Request) {
 	strId := r.PathValue("id")
 
-	w.Write([]byte(strId))
+	id, err := strconv.Atoi(strId)
+	if err != nil {
+		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error converting organizer id to int", err)
+	}
+
+	tournaments, err := repo.TS.GetAllTournamentsByOrganizerId(id)
+	if err != nil {
+		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error getting tournament", err)
+	}
+
+	res, err := json.Marshal(tournaments)
+	if err != nil {
+		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error marshalling tournaments to json", err)
+	}
+
+	w.Write(res)
 }
