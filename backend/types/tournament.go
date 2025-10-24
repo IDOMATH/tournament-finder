@@ -22,4 +22,5 @@ type Tournament struct {
 	GirlsMs       int       `json:"girlsMs"`
 	BoysYouth     int       `json:"boysYouth"`
 	GirlsYouth    int       `json:"girlsYouth"`
+	IsFull        bool      `json:"isFull"`
 }
