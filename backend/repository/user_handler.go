@@ -65,6 +65,11 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *http.Request) {
 	strId := r.PathValue("id")
 
+	id, err := strconv.Atoi(strId)
+	if err != nil {
+		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error converting coach id to string", err)
+	}
+
 	w.Write([]byte(strId))
 }
 
