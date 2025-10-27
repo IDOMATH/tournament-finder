@@ -70,6 +70,8 @@ func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *
 		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error converting coach id to string", err)
 	}
 
+	tournaments, err := repo.TS.GetAllTournamentsByCoachId(id)
+
 	w.Write([]byte(strId))
 }
 
