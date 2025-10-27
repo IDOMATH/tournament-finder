@@ -71,6 +71,9 @@ func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *
 	}
 
 	tournaments, err := repo.TS.GetAllTournamentsByCoachId(id)
+	if err != nil {
+		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error getting tournaments", err)
+	}
 
 	w.Write([]byte(strId))
 }
