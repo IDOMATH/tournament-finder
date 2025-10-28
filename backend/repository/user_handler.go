@@ -75,7 +75,12 @@ func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *
 		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error getting tournaments", err)
 	}
 
-	w.Write([]byte(strId))
+	res, err := json.Marshal(tournaments)
+	if err != nil {
+		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error marshalling tournaments to json", err)
+	}
+
+	w.Write(res)
 }
 
 func (repo *Repository) HandleGetTournamentsByOrganizerId(w http.ResponseWriter, r *http.Request) {
