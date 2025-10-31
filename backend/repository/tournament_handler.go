@@ -17,11 +17,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	}
 
 	//TODO: get the organizerId from the logged in user.
-	tokenVal, found := repo.Session.Get(r.Header["cheetauth"][0])
-	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		return
-	}
+	tokenVal, found := repo.Session.Get(r.Header["Cheetauth"][0])
 	if !found {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
