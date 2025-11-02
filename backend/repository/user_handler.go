@@ -84,6 +84,12 @@ func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *
 }
 
 func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter, r *http.Request) {
+	strid := r.PathValue("id")
+
+	id, err := strconv.Atoi(strid)
+	if err != nil {
+		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error converting id to string", err)
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
