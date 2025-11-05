@@ -84,8 +84,8 @@ func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *
 }
 
 func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter, r *http.Request) {
-	strCoachId := r.PathValue("id")
-	strTournamentId := r.FormValue("tournamentId")
+	strCoachId := r.PathValue("coachId")
+	strTournamentId := r.PathValue("tournamentId")
 
 	coachId, err := strconv.Atoi(strCoachId)
 	if err != nil {
