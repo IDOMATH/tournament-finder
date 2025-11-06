@@ -68,16 +68,19 @@ func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *
 	id, err := strconv.Atoi(strId)
 	if err != nil {
 		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error converting coach id to string", err)
+		return
 	}
 
 	tournaments, err := repo.TS.GetAllTournamentsByCoachId(id)
 	if err != nil {
 		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error getting tournaments", err)
+		return
 	}
 
 	res, err := json.Marshal(tournaments)
 	if err != nil {
 		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error marshalling tournaments to json", err)
+		return
 	}
 
 	w.Write(res)
@@ -90,7 +93,9 @@ func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter
 	coachId, err := strconv.Atoi(strCoachId)
 	if err != nil {
 		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error converting id to string", err)
+		return
 	}
+
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -100,16 +105,19 @@ func (repo *Repository) HandleGetTournamentsByOrganizerId(w http.ResponseWriter,
 	id, err := strconv.Atoi(strId)
 	if err != nil {
 		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error converting organizer id to int", err)
+		return
 	}
 
 	tournaments, err := repo.TS.GetAllTournamentsByOrganizerId(id)
 	if err != nil {
 		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error getting tournament", err)
+		return
 	}
 
 	res, err := json.Marshal(tournaments)
 	if err != nil {
 		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error marshalling tournaments to json", err)
+		return
 	}
 
 	w.Write(res)
