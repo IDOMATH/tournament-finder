@@ -26,3 +26,8 @@ CREATE TABLE users (
     updated_at TIMESTAMP,
     created_at TIMESTAMP
 )
+
+CREATE TABLE schedule (
+    coach_id INTEGER,
+    tournament_id INTEGER
+)
