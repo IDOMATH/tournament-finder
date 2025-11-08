@@ -92,9 +92,17 @@ func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter
 
 	coachId, err := strconv.Atoi(strCoachId)
 	if err != nil {
-		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error converting id to string", err)
+		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error converting coach id to string", err)
 		return
 	}
+
+	tournamentId, err := strconv.Atoi(strTournamentId)
+	if err != nil {
+		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error converting tournament id to string", err)
+		return
+	}
+
+	err = repo.US.AddTournamentToCoachSchedule(coachId, tournamentId)
 
 	w.WriteHeader(http.StatusOK)
 }
