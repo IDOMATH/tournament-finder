@@ -16,6 +16,7 @@ import (
 type Repository struct {
 	TS      db.TournamentStore
 	US      db.UserStore
+	SS      db.ScheduleStore
 	Session *memorystore.MemoryStore[string]
 	Logger  *util.Logger
 }

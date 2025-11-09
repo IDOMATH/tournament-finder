@@ -36,6 +36,7 @@ func setup() *http.Server {
 
 	repo.TS = *db.NewTournamentStore(postgresDb.SQL)
 	repo.US = *db.NewUserStore(postgresDb.SQL)
+	repo.SS = *db.NewScheduleStore(postgresDb.SQL)
 
 	memstore := memorystore.New[string]()
 	repo.Session = memstore
