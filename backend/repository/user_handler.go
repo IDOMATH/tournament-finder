@@ -103,6 +103,9 @@ func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter
 	}
 
 	err = repo.US.AddTournamentToCoachSchedule(coachId, tournamentId)
+	if err != nil {
+		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error adding tournament to schedule", err)
+	}
 
 	w.WriteHeader(http.StatusOK)
 }
