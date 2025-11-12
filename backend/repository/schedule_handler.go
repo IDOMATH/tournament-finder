@@ -40,7 +40,7 @@ func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *
 		return
 	}
 
-	tournaments, err := repo.TS.GetAllTournamentsByCoachId(id)
+	tournaments, err := repo.TS.GetScheduleByCoachId(id)
 	if err != nil {
 		repo.Logger.LogError("HandleGetTournamentsByCoachId", "error getting tournaments", err)
 		return
