@@ -31,7 +31,7 @@ func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter
 	w.WriteHeader(http.StatusOK)
 }
 
-func (repo *Repository) HandleGetTournamentsByCoachId(w http.ResponseWriter, r *http.Request) {
+func (repo *Repository) HandleGetSchedule(w http.ResponseWriter, r *http.Request) {
 	strId := r.PathValue("id")
 
 	id, err := strconv.Atoi(strId)
