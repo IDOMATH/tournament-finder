@@ -31,6 +31,11 @@ func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter
 	w.WriteHeader(http.StatusOK)
 }
 
+func (repo *Repository) HandleRemoveFromSchedule(w http.ResponseWriter, r *http.Request) {
+
+	w.WriteHeader(http.StatusOK)
+}
+
 func (repo *Repository) HandleGetSchedule(w http.ResponseWriter, r *http.Request) {
 	strId := r.PathValue("id")
 
