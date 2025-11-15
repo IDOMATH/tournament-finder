@@ -47,6 +47,12 @@ func (repo *Repository) HandleRemoveFromSchedule(w http.ResponseWriter, r *http.
 		return
 	}
 
+	err = repo.SS.DeleteTournamentFromSchedule(coachId, tournamentId)
+	if err != nil {
+		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error adding tournament to schedule", err)
+		return
+	}
+
 	w.WriteHeader(http.StatusOK)
 }
 
