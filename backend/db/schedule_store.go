@@ -68,3 +68,6 @@ func (s *TournamentStore) GetScheduleByCoachId(id int) ([]types.Tournament, erro
 	}
 	return tournaments, nil
 }
+func (s *ScheduleStore) DeleteTournamentFromSchedule(coachId, tournamentId string) error {
+	query := `DELETE FROM schedule WHERE coach_id = ? AND tournament_id = ?`
+}
