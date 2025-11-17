@@ -19,6 +19,7 @@ func NewScheduleStore(db *sql.DB) *ScheduleStore {
 }
 
 func (s *ScheduleStore) AddTournamentToCoachSchedule(coachId, tournamentId int) error {
+	query := `INSERT INTO schedule (coach_id, tournament_id) values (?, ?)`
 
 	return nil
 }
@@ -70,4 +71,6 @@ func (s *TournamentStore) GetScheduleByCoachId(id int) ([]types.Tournament, erro
 }
 func (s *ScheduleStore) DeleteTournamentFromSchedule(coachId, tournamentId string) error {
 	query := `DELETE FROM schedule WHERE coach_id = ? AND tournament_id = ?`
+
+	return nil
 }
