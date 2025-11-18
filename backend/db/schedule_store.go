@@ -69,8 +69,12 @@ func (s *TournamentStore) GetScheduleByCoachId(id int) ([]types.Tournament, erro
 	}
 	return tournaments, nil
 }
-func (s *ScheduleStore) DeleteTournamentFromSchedule(coachId, tournamentId string) error {
+func (s *ScheduleStore) DeleteTournamentFromSchedule(coachId, tournamentId int) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
 	query := `DELETE FROM schedule WHERE coach_id = ? AND tournament_id = ?`
 
-	return nil
+	_, err := s.Db.ExecContext(ctx, query, coachId, tournamentId)
+	return err
 }
