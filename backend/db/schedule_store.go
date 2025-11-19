@@ -19,9 +19,13 @@ func NewScheduleStore(db *sql.DB) *ScheduleStore {
 }
 
 func (s *ScheduleStore) AddTournamentToCoachSchedule(coachId, tournamentId int) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
 	query := `INSERT INTO schedule (coach_id, tournament_id) values (?, ?)`
 
-	return nil
+	_, err := s.Db.ExecContext(ctx, query, coachId, tournamentId)
+	return err
 }
 
 func (s *TournamentStore) GetScheduleByCoachId(id int) ([]types.Tournament, error) {
