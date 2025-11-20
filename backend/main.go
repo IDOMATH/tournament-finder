@@ -80,7 +80,7 @@ func registerRoutes(router *http.ServeMux, repo *repository.Repository) {
 	router.HandleFunc("POST /user", repo.HandlePostNewUser)
 	router.HandleFunc("POST /login", repo.HandleLogin)
 	router.HandleFunc("POST /logout", repo.HandleLogout)
-	router.HandleFunc("GET /coach/{id}", repo.HandleGetTournamentsByCoachId)
+	router.HandleFunc("GET /coach/{id}", repo.HandleGetSchedule)
 	router.HandleFunc("GET /organizer/{id}", repo.HandleGetTournamentsByOrganizerId)
 }
 
