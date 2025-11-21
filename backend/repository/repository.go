@@ -11,6 +11,7 @@ import (
 	"github.com/IDOMATH/tournament-finder/db"
 	"github.com/IDOMATH/tournament-finder/types"
 	"github.com/IDOMATH/tournament-finder/util"
+	"github.gom/IDOMATH/tournament-finder/log"
 )
 
 type Repository struct {
@@ -18,7 +19,6 @@ type Repository struct {
 	US      db.UserStore
 	SS      db.ScheduleStore
 	Session *memorystore.MemoryStore[string]
-	Logger  *util.Logger
 }
 
 func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
@@ -27,7 +27,7 @@ func (repo *Repository) HandleLogin(w http.ResponseWriter, r *http.Request) {
 
 	id, err := repo.US.Login(loginUser.Email, loginUser.Password)
 	if err != nil {
-		repo.Logger.LogError("HandleLogin", "could not log in", err)
+		log.Error("HandleLogin", "could not log in", err)
 		return
 	}
 
