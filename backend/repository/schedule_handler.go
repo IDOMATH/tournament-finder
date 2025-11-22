@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 	"strconv"
+
+	"github.gom/IDOMATH/tournament-finder/log"
 )
 
 func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter, r *http.Request) {
@@ -12,19 +14,19 @@ func (repo *Repository) HandleAddTournamentToCoachSchedule(w http.ResponseWriter
 
 	coachId, err := strconv.Atoi(strCoachId)
 	if err != nil {
-		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error converting coach id to string", err)
+		log.Error("HandleAddTournamentToCoachSchedule", "error converting coach id to string", err)
 		return
 	}
 
 	tournamentId, err := strconv.Atoi(strTournamentId)
 	if err != nil {
-		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error converting tournament id to string", err)
+		log.Error("HandleAddTournamentToCoachSchedule", "error converting tournament id to string", err)
 		return
 	}
 
 	err = repo.SS.AddTournamentToCoachSchedule(coachId, tournamentId)
 	if err != nil {
-		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error adding tournament to schedule", err)
+		log.Error("HandleAddTournamentToCoachSchedule", "error adding tournament to schedule", err)
 		return
 	}
 
@@ -37,19 +39,19 @@ func (repo *Repository) HandleRemoveFromSchedule(w http.ResponseWriter, r *http.
 
 	coachId, err := strconv.Atoi(strCoachId)
 	if err != nil {
-		repo.Logger.LogError("HandleRemoveFromSchedule", "error converting coach id to string", err)
+		log.Error("HandleRemoveFromSchedule", "error converting coach id to string", err)
 		return
 	}
 
 	tournamentId, err := strconv.Atoi(strTournamentId)
 	if err != nil {
-		repo.Logger.LogError("HandleRemoveFromSchedule", "error converting tournament id to string", err)
+		log.Error("HandleRemoveFromSchedule", "error converting tournament id to string", err)
 		return
 	}
 
 	err = repo.SS.DeleteTournamentFromSchedule(coachId, tournamentId)
 	if err != nil {
-		repo.Logger.LogError("HandleAddTournamentToCoachSchedule", "error adding tournament to schedule", err)
+		log.Error("HandleAddTournamentToCoachSchedule", "error adding tournament to schedule", err)
 		return
 	}
 
@@ -61,19 +63,19 @@ func (repo *Repository) HandleGetSchedule(w http.ResponseWriter, r *http.Request
 
 	id, err := strconv.Atoi(strId)
 	if err != nil {
-		repo.Logger.LogError("HandleGetSchedule", "error converting coach id to string", err)
+		log.Error("HandleGetSchedule", "error converting coach id to string", err)
 		return
 	}
 
 	tournaments, err := repo.TS.GetScheduleByCoachId(id)
 	if err != nil {
-		repo.Logger.LogError("HandleGetSchedule", "error getting tournaments", err)
+		log.Error("HandleGetSchedule", "error getting tournaments", err)
 		return
 	}
 
 	res, err := json.Marshal(tournaments)
 	if err != nil {
-		repo.Logger.LogError("HandleGetSchedule", "error marshalling tournaments to json", err)
+		log.Error("HandleGetSchedule", "error marshalling tournaments to json", err)
 		return
 	}
 
