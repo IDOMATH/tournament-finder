@@ -8,6 +8,7 @@ import (
 
 	"github.com/IDOMATH/tournament-finder/constants"
 	"github.com/IDOMATH/tournament-finder/types"
+	"github.gom/IDOMATH/tournament-finder/log"
 )
 
 func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request) {
@@ -67,19 +68,19 @@ func (repo *Repository) HandleGetTournamentsByOrganizerId(w http.ResponseWriter,
 
 	id, err := strconv.Atoi(strId)
 	if err != nil {
-		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error converting organizer id to int", err)
+		log.Error("HandleGetTournamentsByOrganizerId", "error converting organizer id to int", err)
 		return
 	}
 
 	tournaments, err := repo.TS.GetAllTournamentsByOrganizerId(id)
 	if err != nil {
-		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error getting tournament", err)
+		log.Error("HandleGetTournamentsByOrganizerId", "error getting tournament", err)
 		return
 	}
 
 	res, err := json.Marshal(tournaments)
 	if err != nil {
-		repo.Logger.LogError("HandleGetTournamentsByOrganizerId", "error marshalling tournaments to json", err)
+		log.Error("HandleGetTournamentsByOrganizerId", "error marshalling tournaments to json", err)
 		return
 	}
 
