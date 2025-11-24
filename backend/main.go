@@ -41,8 +41,6 @@ func setup() *http.Server {
 	memstore := memorystore.New[string]()
 	repo.Session = memstore
 
-	repo.Logger = util.NewLogger("/logs/log.txt")
-
 	registerRoutes(router, &repo)
 
 	return &server
