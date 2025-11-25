@@ -170,12 +170,12 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 	// This might want to be LIKE instead of =
 	if filter.Name != "" {
 		activeFilters = append(activeFilters, filter.Name)
-		query = query + fmt.Sprintf("name = $%d", len(activeFilters)+1)
+		query = query + "name = ?"
 	}
 
 	if filter.StreetAddress != "" {
 		activeFilters = append(activeFilters, filter.StreetAddress)
-		query = query + fmt.Sprintf("street_address = $%d", len(activeFilters)+1)
+		query = query + "street_address = ?"
 	}
 
 	if filter.City != "" {
@@ -270,7 +270,7 @@ func (s *TournamentStore) GetTournamentById(id int) (types.Tournament, error) {
 	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
     is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
 	organizer_id, is_full 
-	from tournaments where id = $1`
+	from tournaments where id = ?`
 
 	err := s.DB.QueryRowContext(ctx, query, id).Scan(
 		&tournament.Name,
@@ -298,7 +298,7 @@ func (s *TournamentStore) GetTournamentOrganizerId(id int) (int, error) {
 
 	var organizerId int
 	query := `select organizer_id 
-	from tournaments where id = $1`
+	from tournaments where id = ?`
 
 	err := s.DB.QueryRowContext(ctx, query, id).Scan(
 		&organizerId,
@@ -316,53 +316,7 @@ func (s *TournamentStore) GetAllTournamentsByOrganizerId(id int) ([]types.Tourna
 	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
     is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
 	organizer_id, is_full 
-	FROM tournaments WHERE organizer_id = $1`
-
-	rows, err := s.DB.QueryContext(ctx, query, id)
-	if err != nil {
-		return tournaments, err
-	}
-
-	defer rows.Close()
-
-	for rows.Next() {
-		var tournament types.Tournament
-		err := rows.Scan(
-			&tournament.Name,
-			&tournament.LocationName,
-			&tournament.StreetAddress,
-			&tournament.City,
-			&tournament.State,
-			&tournament.BoysVarsity,
-			&tournament.GirlsVarsity,
-			&tournament.BoysJv,
-			&tournament.GirlsJv,
-			&tournament.BoysMs,
-			&tournament.GirlsMs,
-			&tournament.BoysYouth,
-			&tournament.GirlsYouth,
-			&tournament.OrganizerId,
-			&tournament.IsFull,
-		)
-		if err != nil {
-			return tournaments, err
-		}
-		tournaments = append(tournaments, tournament)
-	}
-	return tournaments, nil
-}
-
-func (s *TournamentStore) GetAllTournamentsByCoachId(id int) ([]types.Tournament, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
-	defer cancel()
-
-	var tournaments []types.Tournament
-	query := `SELECT name, location_name,
-	street_address, city, state,
-	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
-    is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
-	organizer_id, is_full 
-	FROM tournaments WHERE coach_id = $1`
+	FROM tournaments WHERE organizer_id = ?`
 
 	rows, err := s.DB.QueryContext(ctx, query, id)
 	if err != nil {
@@ -402,7 +356,7 @@ func (s *TournamentStore) DeleteTournament(id int) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	query := `DELETE FROM tournaments where id = $1`
+	query := `DELETE FROM tournaments where id = ?`
 
 	_, err := s.DB.ExecContext(ctx, query, id)
 	return err

@@ -38,7 +38,7 @@ func (s *TournamentStore) GetScheduleByCoachId(id int) ([]types.Tournament, erro
 	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
     is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
 	organizer_id, is_full 
-	FROM tournaments WHERE coach_id = $1`
+	FROM tournaments WHERE coach_id = ?`
 
 	rows, err := s.DB.QueryContext(ctx, query, id)
 	if err != nil {
