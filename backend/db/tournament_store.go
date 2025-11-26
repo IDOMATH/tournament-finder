@@ -31,7 +31,7 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 	is_boy_varsity, is_girls_varsity, is_boys_jv, is_girls_js,
     is_boys_ms, is_girls_ms, is_boys_youth, is_girls_youth,
 	is_full) 
-	values ($1, $2, $3, $4, $5, $6, $7)`
+	values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
 
 	err := s.DB.QueryRowContext(ctx, statement,
 		tournament.Name,
@@ -62,12 +62,12 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 	var updatedTournament types.Tournament
 
 	statement := `update tournaments 
-	set name = $1, location_name = $2,
-	street_address = $3, city = $4, state = $5,
-	is_boy_varsity = $6, is_girls_varsity = $7, is_boys_jv = $8, is_girls_js = $9,
-    is_boys_ms = $10, is_girls_ms = $11, is_boys_youth = $12, is_girls_youth = $13,
-	organizer_id = $14, is_full = $15
-	where id = $16`
+	set name = ?, location_name = ?,
+	street_address = ?, city = ?, state = ?,
+	is_boy_varsity = ?, is_girls_varsity = ?, is_boys_jv = ?, is_girls_js = ?,
+    is_boys_ms = ?, is_girls_ms = ?, is_boys_youth = ?, is_girls_youth = ?,
+	organizer_id = ?, is_full = ?
+	where id = ?`
 
 	err := s.DB.QueryRowContext(ctx, statement,
 		tournament.Name,
@@ -113,7 +113,7 @@ func (s *TournamentStore) GetAllTournaments(page int) ([]types.Tournament, error
 	from tournaments
 	ORDER BY start_date
 	LIMIT 25
-	OFFSET $1`
+	OFFSET ?`
 
 	rows, err := s.DB.QueryContext(ctx, query, offset)
 	if err != nil {
