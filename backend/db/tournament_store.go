@@ -180,17 +180,17 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 
 	if filter.City != "" {
 		activeFilters = append(activeFilters, filter.City)
-		query = query + fmt.Sprintf("city = $%d", len(activeFilters)+1)
+		query = query + fmt.Sprintf("city = ?")
 	}
 
 	if filter.State != "" {
 		activeFilters = append(activeFilters, filter.State)
-		query = query + fmt.Sprintf("location_state = $%d", len(activeFilters)+1)
+		query = query + fmt.Sprintf("location_state = ?")
 	}
 
 	if !filter.StartDate.IsZero() {
 		activeFilters = append(activeFilters, filter.StartDate)
-		query = query + fmt.Sprintf("start_date = $%d", len(activeFilters)+1)
+		query = query + fmt.Sprintf("start_date = ?")
 	}
 
 	if !filter.EndDate.IsZero() {
