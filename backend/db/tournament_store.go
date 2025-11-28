@@ -195,7 +195,7 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 
 	if !filter.EndDate.IsZero() {
 		activeFilters = append(activeFilters, filter.EndDate)
-		query = query + fmt.Sprintf("end_date = $%d", len(activeFilters)+1)
+		query = query + fmt.Sprintf("end_date = ?")
 	}
 
 	if filter.BoysVarsity > 0 {
