@@ -32,7 +32,7 @@ func (s *UserStore) InsertUser(user types.NewUser) error {
 
 	statement := `insert into users 
 	(name, email, password_hash, is_organizer, is_coach, updated_at, created_at) 
-	values ($1, $2, $3, $4, $5, $6, $7)`
+	values (?, ?, ?, ?, ?, ?, ?)`
 
 	_, err = s.Db.ExecContext(ctx, statement,
 		user.Name,
