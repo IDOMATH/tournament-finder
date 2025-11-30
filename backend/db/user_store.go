@@ -55,7 +55,7 @@ func (s *UserStore) GetUserById(id int) (types.User, error) {
 
 	var u types.User
 
-	query := `select name, email, is_organizer, is_coach from users where id = $1`
+	query := `select name, email, is_organizer, is_coach from users where id = ?`
 
 	err := s.Db.QueryRowContext(ctx, query, id).Scan(&u.Name, &u.Email, &u.IsOrganizer, &u.IsCoach)
 	return u, err
@@ -81,7 +81,7 @@ func (s *UserStore) DeleteUser(id int) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
-	query := `delete from users where id = $1`
+	query := `delete from users where id = ?`
 
 	_, err := s.Db.ExecContext(ctx, query, id)
 	return err
@@ -93,7 +93,7 @@ func (s *UserStore) Login(email, password string) (int, error) {
 
 	var u types.User
 
-	query := `select email, password_hash, id from users where email = $1`
+	query := `select email, password_hash, id from users where email = ?`
 	err := s.Db.QueryRowContext(ctx, query, email).Scan(&u.Email, &u.PasswordHash, &u.Id)
 	if err != nil {
 		fmt.Println(err.Error())
