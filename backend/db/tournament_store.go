@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/IDOMATH/tournament-finder/log"
 	"github.com/IDOMATH/tournament-finder/types"
 )
 
@@ -117,6 +118,7 @@ func (s *TournamentStore) GetAllTournaments(page int) ([]types.Tournament, error
 
 	rows, err := s.DB.QueryContext(ctx, query, offset)
 	if err != nil {
+		log.Error("GetAllTournaments", "error querying database", err)
 		return tournaments, err
 	}
 	defer rows.Close()
