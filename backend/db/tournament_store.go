@@ -87,9 +87,8 @@ func (s *TournamentStore) UpdateTournament(tournament types.Tournament) (types.T
 		tournament.OrganizerId,
 		tournament.Id).Scan(&updatedTournament)
 
-	fmt.Println(updatedTournament)
-
 	if err != nil {
+		log.Error("UpdateTournament", "updating tournament in database", err)
 		return updatedTournament, err
 	}
 
