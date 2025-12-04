@@ -51,6 +51,7 @@ func (s *TournamentStore) InsertTournament(tournament types.Tournament) (int, er
 		tournament.OrganizerId).Scan(&newId)
 
 	if err != nil {
+		log.Error("InsertTournament", "error inserting tournament into DB", err)
 		return 0, err
 	}
 	return newId, nil
