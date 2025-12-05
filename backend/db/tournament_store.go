@@ -254,6 +254,7 @@ func (s *TournamentStore) FilterTournaments(filter types.Tournament) ([]types.To
 			&tournament.OrganizerId,
 		)
 		if err != nil {
+			log.Error("FilterTournaments", "error scanning into tournaments array", err)
 			return tournaments, err
 		}
 		tournaments = append(tournaments, tournament)
