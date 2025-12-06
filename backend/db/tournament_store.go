@@ -323,6 +323,7 @@ func (s *TournamentStore) GetAllTournamentsByOrganizerId(id int) ([]types.Tourna
 
 	rows, err := s.DB.QueryContext(ctx, query, id)
 	if err != nil {
+		log.Error("GetAllTournamentsByOrganizerId", "error getting tournaments from database", err)
 		return tournaments, err
 	}
 
@@ -348,6 +349,7 @@ func (s *TournamentStore) GetAllTournamentsByOrganizerId(id int) ([]types.Tourna
 			&tournament.IsFull,
 		)
 		if err != nil {
+			log.Error("GetAllTournamentsByOrganizerId", "error scanning rows into tournaments array", err)
 			return tournaments, err
 		}
 		tournaments = append(tournaments, tournament)
