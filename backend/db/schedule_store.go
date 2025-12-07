@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"time"
 
+	"github.com/IDOMATH/tournament-finder/log"
 	"github.com/IDOMATH/tournament-finder/types"
 )
 
@@ -42,6 +43,7 @@ func (s *TournamentStore) GetScheduleByCoachId(id int) ([]types.Tournament, erro
 
 	rows, err := s.DB.QueryContext(ctx, query, id)
 	if err != nil {
+		log.Error("GetScheduleByCoachId", "error getting coach schedule from database", err)
 		return tournaments, err
 	}
 
