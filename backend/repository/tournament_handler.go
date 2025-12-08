@@ -2,16 +2,20 @@ package repository
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"strconv"
 
+	"github.com/IDOMATH/tournament-finder/log"
 	"github.com/IDOMATH/tournament-finder/types"
+	"github.gom/IDOMATH/tournament-finder/log"
 )
 
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
 	var tournament types.Tournament
 	err := json.NewDecoder(r.Body).Decode(&tournament)
 	if err != nil {
+		log.Error("HandlePostTournament", "error decoding json", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -19,6 +23,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	//TODO: get the organizerId from the logged in user.
 	tokenVal, found := repo.Session.Get(r.Header["Cheetauth"][0])
 	if !found {
+		log.Error("HandlePostTournament", "error getting token from session", errors.New("token not found"))
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
