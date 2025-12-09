@@ -29,6 +29,11 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	}
 
 	tournament.OrganizerId, err = strconv.Atoi(tokenVal)
+	if err != nil {
+		log.Error("HandlePostTournament", "error converting token from string to int", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	if tournament.OrganizerId == 0 {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
