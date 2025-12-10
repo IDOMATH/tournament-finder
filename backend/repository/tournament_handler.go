@@ -41,6 +41,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 
 	id, err := repo.TS.InsertTournament(tournament)
 	if err != nil {
+		log.Error("HandlePostTournament", "error inserting tournament into database", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
