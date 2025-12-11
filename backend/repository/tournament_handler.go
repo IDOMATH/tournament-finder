@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/IDOMATH/tournament-finder/log"
 	"github.com/IDOMATH/tournament-finder/types"
 	"github.gom/IDOMATH/tournament-finder/log"
 )
@@ -47,6 +46,7 @@ func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Requ
 	}
 	res, err := json.Marshal(id)
 	if err != nil {
+		log.Error("HandlePostTournament", "error marshalling id to json", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error marshalling json"))
 		return
