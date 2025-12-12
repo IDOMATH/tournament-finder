@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/IDOMATH/tournament-finder/log"
 	"github.com/IDOMATH/tournament-finder/types"
 	"github.gom/IDOMATH/tournament-finder/log"
 )
@@ -59,6 +60,7 @@ func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Reque
 	var tournament types.Tournament
 	err := json.NewDecoder(r.Body).Decode(&tournament.Name)
 	if err != nil {
+		log.Error("HandlePutTournament", "error decoding tournament json", err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
