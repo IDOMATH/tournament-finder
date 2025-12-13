@@ -67,11 +67,13 @@ func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Reque
 
 	updatedTournament, err := repo.TS.UpdateTournament(tournament)
 	if err != nil {
+		log.Error("HandlePutTournament", "error updating tournament in database", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	res, err := json.Marshal(updatedTournament)
 	if err != nil {
+		log.Error("HandlePutTournament", "error marshaling json", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error marshalling json"))
 		return
