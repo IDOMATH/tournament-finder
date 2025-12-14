@@ -85,6 +85,7 @@ func (repo *Repository) HandlePutTournament(w http.ResponseWriter, r *http.Reque
 func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Request) {
 	pageNumber, err := strconv.Atoi(r.PathValue("page"))
 	if err != nil {
+		log.Error("HandleGetTournaments", "error converting page number to integer", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
