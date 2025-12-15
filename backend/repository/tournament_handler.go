@@ -91,6 +91,7 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 	}
 	tournaments, err := repo.TS.GetAllTournaments(pageNumber)
 	if err != nil {
+		log.Error("HandleGetTournaments", "error getting all tournaments from database", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
