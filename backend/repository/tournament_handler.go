@@ -97,6 +97,7 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 	}
 	resTournaments, err := json.Marshal(tournaments)
 	if err != nil {
+		log.Error("HandleGetTournaments", "error marshalling tournaments to json", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error marshalling json"))
 		return
