@@ -109,6 +109,7 @@ func (repo *Repository) HandleGetTournaments(w http.ResponseWriter, r *http.Requ
 func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
+		log.Error("HandleGetTournamentById", "error converting id from string to int", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("invalid id"))
 		return
