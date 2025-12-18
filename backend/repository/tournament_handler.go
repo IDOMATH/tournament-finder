@@ -116,6 +116,7 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 	}
 	tournament, err := repo.TS.GetTournamentById(id)
 	if err != nil {
+		log.Error("HandleGetTournamentById", "error getting tournament from database", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
