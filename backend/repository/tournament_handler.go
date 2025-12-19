@@ -123,6 +123,7 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 	resTournament, err := json.Marshal(tournament)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
+		log.Error("HandleGetTournamentById", "error marshalling tournament json", err)
 		w.Write([]byte("error marshalling json"))
 		return
 	}
