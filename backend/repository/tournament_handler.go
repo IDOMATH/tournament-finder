@@ -8,7 +8,6 @@ import (
 
 	"github.com/IDOMATH/tournament-finder/log"
 	"github.com/IDOMATH/tournament-finder/types"
-	"github.gom/IDOMATH/tournament-finder/log"
 )
 
 func (repo *Repository) HandlePostTournament(w http.ResponseWriter, r *http.Request) {
@@ -134,12 +133,14 @@ func (repo *Repository) HandleGetTournamentById(w http.ResponseWriter, r *http.R
 func (repo *Repository) HandleDeleteTournament(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
+		log.Error("HandleeDeleteTournament", "error converting id string to int", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error converting ID from string to int: " + err.Error()))
 		return
 	}
 	err = repo.TS.DeleteTournament(id)
 	if err != nil {
+		log.Error("HandleDeleteTournament", "error deleting tournament", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error deleting tournament: " + err.Error()))
 		return
