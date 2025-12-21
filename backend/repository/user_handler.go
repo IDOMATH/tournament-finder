@@ -15,6 +15,7 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 	var id int
 	err := json.NewDecoder(r.Body).Decode(&id)
 	if err != nil {
+		log.Error("HandleGetUserById", "error decoding id json from body")
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error converting id"))
 		return
