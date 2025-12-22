@@ -15,7 +15,7 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 	var id int
 	err := json.NewDecoder(r.Body).Decode(&id)
 	if err != nil {
-		log.Error("HandleGetUserById", "error decoding id json from body")
+		log.Error("HandleGetUserById", "error decoding id json from body", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error converting id"))
 		return
@@ -23,6 +23,7 @@ func (repo *Repository) HandleGetUserById(w http.ResponseWriter, r *http.Request
 
 	user, err := repo.US.GetUserById(id)
 	if err != nil {
+		log.Error("HandleGetUserById", "error getting user from database", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error getting user"))
 		return
