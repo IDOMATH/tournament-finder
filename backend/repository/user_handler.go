@@ -52,11 +52,13 @@ func (repo *Repository) HandlePostNewUser(w http.ResponseWriter, r *http.Request
 
 	err = repo.US.InsertUser(user)
 	if err.Error() == constants.EmailInAlreadyInUse {
+		log.Error("HandlePostNewUser", "error inserting user", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("email already in use"))
 		return
 	}
 	if err != nil {
+		log.Error("HandlePostNewUser", "error inserting user", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("error inserting user"))
 		fmt.Println(err)
